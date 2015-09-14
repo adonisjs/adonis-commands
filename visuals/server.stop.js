@@ -5,6 +5,7 @@
  * Copyright(c) 2015-2015 Harminder Virk
  * MIT Licensed
 */
+
 const ServerStop = require('../src/Server/Stop')
 const Ansi = require('adonis-ace').Ansi
 const path = require('path')
