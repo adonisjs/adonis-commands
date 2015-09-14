@@ -13,16 +13,6 @@ class ServerProvider extends ServiceProvider{
 
   *register() {
 
-    /*
-    |--------------------------------------------------------------------------
-    |   Server Commands
-    |--------------------------------------------------------------------------
-    |
-    |   Below is the list of commands which can be used to run , stop and
-    |   view adonis http server details.
-    |
-    */
-
     /**
      * binding a new command to ioc container , which will start a new server
      */

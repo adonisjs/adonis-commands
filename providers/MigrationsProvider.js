@@ -13,16 +13,6 @@ class MigrationsProvider extends ServiceProvider{
 
   *register() {
 
-    /*
-    |--------------------------------------------------------------------------
-    |   Migrations
-    |--------------------------------------------------------------------------
-    |
-    |   Here we have commands related to migrations , one can simple create
-    |   run and rollback migrations
-    |
-    */
-
     this.app.bind('Adonis/Addons/Migration:Make', function (Adonis_Src_Helpers,Adonis_Src_Database) {
       return new Migrations.Make(Adonis_Src_Helpers,Adonis_Src_Database)
     })

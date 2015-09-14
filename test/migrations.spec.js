@@ -9,7 +9,6 @@ const co = require('co')
 const fsExtra = require('co-fs-extra')
 const fs = require('fs')
 const path = require('path')
-const knex = require('knex')
 const Ansi = require('adonis-ace').Ansi
 
 const Helpers = {
@@ -18,12 +17,23 @@ const Helpers = {
   }
 }
 
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: path.join(__dirname, './storage/database.sqlite3')
+const Env = {
+  get: function () {
+    return 'sqlite'
   }
-})
+}
+
+const Config = {
+  get: function () {
+    return {
+      client: 'sqlite3',
+      connection:{
+        filename: path.join(__dirname,'./storage/database.sqlite3')
+      }
+    }
+  }
+}
+
 
 describe('Generators' , function () {
   before(function (done) {
@@ -38,7 +48,7 @@ describe('Generators' , function () {
   })
 
   it('should make a new migration using handle method' , function (done) {
-    const mk = new Make(Helpers, db)
+    const mk = new Make(Helpers, Env, Config)
 
     co(function *() {
       return yield mk.handle({name: 'users'})
@@ -50,7 +60,7 @@ describe('Generators' , function () {
   })
 
   it('should run given migrations using Run command handle method' , function (done) {
-    const mk = new Run(Helpers, db, Ansi)
+    const mk = new Run(Helpers, Env, Config, Ansi)
 
     co(function *() {
       return yield mk.handle({}, {force: true})
@@ -61,7 +71,7 @@ describe('Generators' , function () {
   })
 
   it('should rollback given migrations using Rollback command handle method' , function (done) {
-    const mk = new Rollback(Helpers, db, Ansi)
+    const mk = new Rollback(Helpers, Env, Config, Ansi)
 
     co(function *() {
       return yield mk.handle({}, {force: true})

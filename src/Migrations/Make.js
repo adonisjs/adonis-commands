@@ -6,11 +6,14 @@
  * MIT Licensed
 */
 
+const knex = require('knex')
+
 class Make {
 
-  constructor (Helpers, Database) {
+  constructor (Helpers, Env, Config) {
     this.helpers = Helpers
-    this.database = Database
+    this.env = Env
+    this.config = Config
   }
 
   /**
@@ -48,9 +51,32 @@ class Make {
     const migrationPath = this.helpers.migrationsPath()
 
     /**
+     * grabbing current db connection
+     */
+    const dbConnection = this.env.get('DB_CONNECTION')
+
+    if(!dbConnection){
+      throw new Error('Define DB_CONNECTION inside .env file to make use of migrations')
+    }
+
+    /**
+     * grabbing connection settings from Config provider
+     */
+    const dbSettings = this.config.get(`database.${dbConnection}`)
+
+    if(!dbSettings){
+      throw new Error('Unable to find connection ' + dbSettings + ' under config/database.file')
+    }
+
+    /**
+     * making knex instance
+     */
+    const database = knex(dbSettings)
+
+    /**
      * calling knex migration make method
      */
-    const make = yield this.database.migrate.make(name, {
+    const make = yield database.migrate.make(name, {
       directory: migrationPath,
       tableName: 'adonis_migrations'
     })
