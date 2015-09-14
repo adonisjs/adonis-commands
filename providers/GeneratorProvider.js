@@ -11,27 +11,31 @@ const Generators = require('../src/Generators')
 
 class GeneratorProvider extends ServiceProvider{
 
+  static get inject(){
+    return ['Adonis/Src/Helpers','Adonis/Addons/Ansi']
+  }
+
   *register() {
 
     /**
      * binding a new command to ioc container, which will scaffold a new controller
      */
-    this.app.bind('Adonis/Addons/Generator:Controller', function (Adonis_Src_Helpers,Adonis_Addons_Ansi) {
-      return new Generators.Controller(Adonis_Src_Helpers,Adonis_Addons_Ansi)
+    this.app.bind('Adonis/Addons/Generator:Controller', function (Helpers,Ansi) {
+      return new Generators.Controller(Helpers,Ansi)
     })
 
     /**
      * binding a new command to ioc container, which will scaffold a new terminal command
      */
-    this.app.bind('Adonis/Addons/Generator:Command', function (Adonis_Src_Helpers,Adonis_Addons_Ansi) {
-      return new Generators.Command(Adonis_Src_Helpers,Adonis_Addons_Ansi)
+    this.app.bind('Adonis/Addons/Generator:Command', function (Helpers,Ansi) {
+      return new Generators.Command(Helpers,Ansi)
     })
 
     /**
      * binding a new command to ioc container, which will scaffold a model
      */
-    this.app.bind('Adonis/Addons/Generator:Model', function (Adonis_Src_Helpers,Adonis_Addons_Ansi) {
-      return new Generators.Model(Adonis_Src_Helpers,Adonis_Addons_Ansi)
+    this.app.bind('Adonis/Addons/Generator:Model', function (Helpers,Ansi) {
+      return new Generators.Model(Helpers,Ansi)
     })
 
 

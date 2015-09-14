@@ -11,18 +11,22 @@ const Migrations = require('../src/Migrations')
 
 class MigrationsProvider extends ServiceProvider{
 
+  static get inject(){
+    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Src/Config','Adonis/Addons/Ansi']
+  }
+
   *register() {
 
-    this.app.bind('Adonis/Addons/Migration:Make', function (Adonis_Src_Helpers,Adonis_Src_Database) {
-      return new Migrations.Make(Adonis_Src_Helpers,Adonis_Src_Database)
+    this.app.bind('Adonis/Addons/Migration:Make', function (Helpers,Env,Config,Ansi) {
+      return new Migrations.Make(Helpers,Env,Config,Ansi)
     })
 
-    this.app.bind('Adonis/Addons/Migration:Rollback', function (Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi) {
-      return new Migrations.Rollback(Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi)
+    this.app.bind('Adonis/Addons/Migration:Rollback', function (Helpers,Env,Config,Ansi) {
+      return new Migrations.Rollback(Helpers,Env,Config,Ansi)
     })
 
-    this.app.bind('Adonis/Addons/Migration:Run', function (Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi) {
-      return new Migrations.Make(Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi)
+    this.app.bind('Adonis/Addons/Migration:Run', function (Helpers,Env,Config,Ansi) {
+      return new Migrations.Make(Helpers,Env,Config,Ansi)
     })
 
   }
