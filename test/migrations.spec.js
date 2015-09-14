@@ -13,26 +13,24 @@ const knex = require('knex')
 const Ansi = require('adonis-ace').Ansi
 
 const Helpers = {
-  migrationsPath : function (){
-    return path.join(__dirname,'./migrations')
+  migrationsPath: function () {
+    return path.join(__dirname, './migrations')
   }
 }
-
 
 const db = knex({
   client: 'sqlite3',
   connection: {
-    filename: path.join(__dirname,'./storage/database.sqlite3')
+    filename: path.join(__dirname, './storage/database.sqlite3')
   }
 })
 
 describe('Generators' , function () {
-
   before(function (done) {
-    const storagePath = path.join(__dirname,'./storage')
-    const migrationsPath = path.join(__dirname,'./migrations')
-    co (function * () {
-      return yield [fsExtra.emptyDir(migrationsPath),fsExtra.mkdirs(storagePath)]
+    const storagePath = path.join(__dirname, './storage')
+    const migrationsPath = path.join(__dirname, './migrations')
+    co(function * () {
+      return yield [fsExtra.emptyDir(migrationsPath), fsExtra.mkdirs(storagePath)]
     }).then(function (resp) {
       done()
     }).catch(done)
@@ -40,11 +38,10 @@ describe('Generators' , function () {
   })
 
   it('should make a new migration using handle method' , function (done) {
+    const mk = new Make(Helpers, db)
 
-    const mk = new Make(Helpers,db)
-
-    co ( function *() {
-      return yield mk.handle({name:'users'})
+    co(function *() {
+      return yield mk.handle({name: 'users'})
     }).then(function (response) {
       expect(response).to.include('Created')
       done()
@@ -52,13 +49,11 @@ describe('Generators' , function () {
 
   })
 
-
   it('should run given migrations using Run command handle method' , function (done) {
+    const mk = new Run(Helpers, db, Ansi)
 
-    const mk = new Run(Helpers,db,Ansi)
-
-    co ( function *() {
-      return yield mk.handle({},{force:true})
+    co(function *() {
+      return yield mk.handle({}, {force: true})
     }).then(function (response) {
       done()
     }).catch(done)
@@ -66,16 +61,14 @@ describe('Generators' , function () {
   })
 
   it('should rollback given migrations using Rollback command handle method' , function (done) {
+    const mk = new Rollback(Helpers, db, Ansi)
 
-    const mk = new Rollback(Helpers,db,Ansi)
-
-    co ( function *() {
-      return yield mk.handle({},{force:true})
+    co(function *() {
+      return yield mk.handle({}, {force: true})
     }).then(function (response) {
       done()
     }).catch(done)
 
   })
-
 
 })
