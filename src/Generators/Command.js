@@ -50,15 +50,14 @@ class Command {
   }
 
   /**
-   * command description for people to understand stuff
-   * @return {[type]} [description]
+   * description for command to be used by --help
    */
   get description(){
     return 'Generate a new ace command file by passing it\'s name'
   }
 
   /**
-   * i am going to return the signature required by ace
+   * returning signature required and used by ace
    */
   get signature(){
     return 'make:command {name:command name you want to use}'
@@ -68,7 +67,7 @@ class Command {
   /**
    * @function handle
    * @description executed by ace , this method makes a new
-   * model file inside model directory
+   * terminal command file inside Commands directory
    * @param  {Object} options
    * @param  {Object} flags
    * @return {*}
