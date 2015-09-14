@@ -6,9 +6,9 @@
  * MIT Licensed
 */
 
-class Rollback{
+class Rollback {
 
-  constructor(Helpers,Database,Ansi){
+  constructor (Helpers, Database, Ansi) {
     this.helpers = Helpers
     this.database = Database
     this.ansi = Ansi
@@ -18,7 +18,7 @@ class Rollback{
    * command description
    * @return {String}
    */
-  get description(){
+  get description () {
     return 'Rollback latest migrations'
   }
 
@@ -26,7 +26,7 @@ class Rollback{
    * command signature used by ace
    * @return {String}
    */
-  get signature(){
+  get signature () {
     return 'migration:rollback {--force?}'
   }
 
@@ -37,8 +37,7 @@ class Rollback{
    * @param  {Object} flags
    * @return {String}
    */
-  *handle (options,flags){
-
+  * handle (options, flags) {
     /**
      * getting force flag , as by default we do not run
      * migrations in production environment
@@ -47,7 +46,7 @@ class Rollback{
 
     const self = this
 
-    if(process.env.NODE_ENV !== 'development' && !force){
+    if (process.env.NODE_ENV !== 'development' && !force) {
       throw new Error('Migrations can be rolled back in development environment only , use --force to rollback in other environments')
     }
 
@@ -60,28 +59,28 @@ class Rollback{
      * calling knex migration rollback method
      */
     const run = yield this.database.migrate.rollback({
-      directory : migrationPath,
+      directory: migrationPath,
       tableName: 'adonis_migrations'
     })
 
-    if(typeof(run) !== 'object' && run.length === 0){
+    if (typeof (run) !== 'object' && run.length === 0) {
       throw new Error('Unable to run migrations , make sure database is properly configured')
     }
 
     const batch = run[0]
     const files = run[1]
 
-    if(files.length === 1){
+    if (files.length === 1) {
       self.ansi.info('Already at the base migration')
     }
 
-    self.ansi.output('yellow',`\ Batch rolled back: ${batch}`)
+    self.ansi.output('yellow', `\ Batch rolled back: ${batch}`)
     files.forEach(function (file) {
-      console.log('  ' + file.replace(migrationPath,'migrations'),self.ansi.icon('success'))
+      console.log('  ' + file.replace(migrationPath, 'migrations'), self.ansi.icon('success'))
     })
 
   }
 
 }
 
-module.exports = Rollback;
+module.exports = Rollback

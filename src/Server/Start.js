@@ -10,9 +10,9 @@ const pm2 = require('pm2')
 const path = require('path')
 const sh = require('shorthash')
 
-class Start{
+class Start {
 
-  constructor(Helpers,Ansi){
+  constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
   }
@@ -21,7 +21,7 @@ class Start{
    * command description
    * @return {String}
    */
-  get description(){
+  get description () {
     return 'Start adonis server as a deamon'
   }
 
@@ -29,7 +29,7 @@ class Start{
    * command signature used by ace
    * @return {String}
    */
-  get signature(){
+  get signature () {
     return 'server:start {--cluster?}'
   }
 
@@ -40,12 +40,11 @@ class Start{
    * @param  {Object} flags
    * @return {String}
    */
-  *handle (options,flags){
-
+  * handle (options, flags) {
     /**
      * finding whether to run sever as a cluster or not
      */
-    const scriptPath = path.join(this.helpers.basePath(),'./server.js')
+    const scriptPath = path.join(this.helpers.basePath(), './server.js')
     const cluster = options.cluster || false
     const execMode = cluster ? 'cluster' : 'fork'
 
@@ -58,7 +57,6 @@ class Start{
     const storagePath = this.helpers.storagePath()
     const migrationsPath = this.helpers.migrationsPath()
     const processName = sh.unique(scriptPath)
-
 
     /**
      * setting watch files to true
@@ -77,28 +75,27 @@ class Start{
      * options to pass to pm2 start method
      */
     const pm2Options = {
-      exec_mode : execMode,
-      name : processName,
+      exec_mode: execMode,
+      name: processName,
       max_memory_restart: maxMemoryRestart,
       watch: watchFiles,
       node_args: '--harmony__proxies',
-      ignore_watch: [publicPath,resourcesPath,storagePath,migrationsPath],
+      ignore_watch: [publicPath, resourcesPath, storagePath, migrationsPath],
       script: scriptPath
     }
 
     pm2.connect(function () {
-      pm2.start(pm2Options, function (err,apps) {
-
+      pm2.start(pm2Options, function (err, apps) {
         /**
          * show error if there's one
          */
-        if(err){
+        if (err) {
           self.ansi.error(err.msg)
-        }else{
+        } else {
           /**
            * print success message saying running process
            */
-          console.log(`Started adonis process ${processName}`,self.ansi.icon('success'))
+          console.log(`Started adonis process ${processName}`, self.ansi.icon('success'))
         }
         pm2.disconnect()
 
@@ -109,4 +106,4 @@ class Start{
 
 }
 
-module.exports = Start;
+module.exports = Start

@@ -6,9 +6,9 @@
  * MIT Licensed
 */
 
-class Make{
+class Make {
 
-  constructor(Helpers,Database){
+  constructor (Helpers, Database) {
     this.helpers = Helpers
     this.database = Database
   }
@@ -17,7 +17,7 @@ class Make{
    * command description
    * @return {String}
    */
-  get description(){
+  get description () {
     return 'Generate a new migration file'
   }
 
@@ -25,7 +25,7 @@ class Make{
    * command signature used by ace
    * @return {String}
    */
-  get signature(){
+  get signature () {
     return 'migration:make {name}'
   }
 
@@ -36,8 +36,7 @@ class Make{
    * @param  {Object} flags
    * @return {String}
    */
-  *handle (options,flags){
-
+  * handle (options, flags) {
     /**
      * grabbing migration name
      */
@@ -51,8 +50,8 @@ class Make{
     /**
      * calling knex migration make method
      */
-    const make = yield this.database.migrate.make(name,{
-      directory : migrationPath,
+    const make = yield this.database.migrate.make(name, {
+      directory: migrationPath,
       tableName: 'adonis_migrations'
     })
 
@@ -61,8 +60,8 @@ class Make{
      * as string , if response is not a string , then something
      * went bad
      */
-    if(typeof(make) === 'string'){
-      const migrationName = make.replace(migrationPath,'migrations')
+    if (typeof (make) === 'string') {
+      const migrationName = make.replace(migrationPath, 'migrations')
       return `Created ${migrationName} successfully !`
     }
 
@@ -72,4 +71,4 @@ class Make{
 
 }
 
-module.exports = Make;
+module.exports = Make

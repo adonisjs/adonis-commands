@@ -9,14 +9,13 @@
 const utils = require('./helpers')
 const fs = require('co-fs-extra')
 const path = require('path')
-const _ = require("lodash")
 
 /**
  * model string that will be written to a
  * new model , it contains dynamic
  * segments.
  */
-let commandString = `'use strict';
+let commandString = `'use strict'
 
 const Console = use("Console")
 
@@ -41,10 +40,9 @@ class {{name}} extends Console {
 module.exports = {{name}}
 `
 
-
 class Command {
 
-  constructor(Helpers,Ansi){
+  constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
   }
@@ -52,17 +50,16 @@ class Command {
   /**
    * description for command to be used by --help
    */
-  get description(){
-    return 'Generate a new ace command file by passing it\'s name'
+  get description () {
+    return "Generate a new ace command file by passing it's name"
   }
 
   /**
    * returning signature required and used by ace
    */
-  get signature(){
+  get signature () {
     return 'make:command {name:command name you want to use}'
   }
-
 
   /**
    * @function handle
@@ -72,17 +69,16 @@ class Command {
    * @param  {Object} flags
    * @return {*}
    */
-  * handle (options,flags){
-
+  * handle (options, flags) {
     /**
      * making proper command name with proper formatting
      */
-    const name = `${utils.makeName(options.name,'Command',true)}`
+    const name = `${utils.makeName(options.name, 'Command', true)}`
 
     /**
      * making path to commands directory
      */
-    const commandPath = path.join(this.helpers.appPath(),`/Commands/${name}.js`)
+    const commandPath = path.join(this.helpers.appPath(), `/Commands/${name}.js`)
 
     /**
      * finding whether command already exists or not
@@ -93,19 +89,18 @@ class Command {
      * if command does not exists , take the pleasure for creating
      * a new one.
      */
-    if(!exists){
-
+    if (!exists) {
       /**
        * replacing {{name}} block with model name
        */
-      const nameRegex = new RegExp("{{name}}",'g')
+      const nameRegex = new RegExp('{{name}}', 'g')
 
-      commandString = commandString.replace(nameRegex,name)
+      commandString = commandString.replace(nameRegex, name)
 
       /**
        * creating command file
        */
-      yield fs.outputFile(commandPath,commandString)
+      yield fs.outputFile(commandPath, commandString)
       return `Created ${name}.js command successfully`
 
     }
@@ -118,6 +113,5 @@ class Command {
   }
 
 }
-
 
 module.exports = Command

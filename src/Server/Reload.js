@@ -10,9 +10,9 @@ const pm2 = require('pm2')
 const path = require('path')
 const sh = require('shorthash')
 
-class Reload{
+class Reload {
 
-  constructor(Helpers,Ansi){
+  constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
   }
@@ -21,7 +21,7 @@ class Reload{
    * command description
    * @return {String}
    */
-  get description(){
+  get description () {
     return 'Reload running adonis server'
   }
 
@@ -29,7 +29,7 @@ class Reload{
    * command signature used by ace
    * @return {String}
    */
-  get signature(){
+  get signature () {
     return 'server:reload'
   }
 
@@ -40,25 +40,23 @@ class Reload{
    * @param  {Object} flags
    * @return {String}
    */
-  *handle (options,flags){
-
+  * handle (options, flags) {
     const self = this
-    const scriptPath = path.join(this.helpers.basePath(),'./server.js')
+    const scriptPath = path.join(this.helpers.basePath(), './server.js')
     const processName = sh.unique(scriptPath)
 
     pm2.connect(function () {
-      pm2.reload(processName, function (err,apps) {
-
-        if(err){
+      pm2.reload(processName, function (err, apps) {
+        if (err) {
           /**
            * show error if there is an error
            */
           self.ansi.error(err.msg)
-        }else{
+        } else {
           /**
            * otherwise say process has been stopped
            */
-          console.log(`Reloaded process ${processName} successfully`,self.ansi.icon('success'))
+          console.log(`Reloaded process ${processName} successfully`, self.ansi.icon('success'))
         }
         pm2.disconnect()
 
@@ -68,4 +66,4 @@ class Reload{
   }
 }
 
-module.exports = Reload;
+module.exports = Reload

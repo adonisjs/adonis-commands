@@ -10,5 +10,5 @@ module.exports = {
   Start: require('./Start'),
   Stop: require('./Stop'),
   Reload: require('./Reload'),
-  Show: require('./Show'),
+  Show: require('./Show')
 }

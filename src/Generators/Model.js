@@ -9,14 +9,13 @@
 const utils = require('./helpers')
 const fs = require('co-fs-extra')
 const path = require('path')
-const _ = require("lodash")
 
 /**
  * model string that will be written to a
  * new model , it contains dynamic
  * segments.
  */
-let modelString = `'use strict';
+let modelString = `'use strict'
 
 const Lucid = use("Lucid")
 
@@ -27,10 +26,9 @@ class {{name}} extends Lucid {
 module.exports = {{name}}
 `
 
-
 class Model {
 
-  constructor(Helpers,Ansi){
+  constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
   }
@@ -39,17 +37,16 @@ class Model {
    * command description for people to understand stuff
    * @return {[type]} [description]
    */
-  get description(){
-    return 'Generate a new model file by passing it\'s name'
+  get description () {
+    return "Generate a new model file by passing it's name"
   }
 
   /**
    * i am going to return the signature required by ace
    */
-  get signature(){
+  get signature () {
     return 'make:model {name:model name}'
   }
-
 
   /**
    * @function handle
@@ -59,17 +56,16 @@ class Model {
    * @param  {Object} flags
    * @return {*}
    */
-  * handle (options,flags){
-
+  * handle (options, flags) {
     /**
      * making proper model name with proper formatting
      */
-    const name = `${utils.makeName(options.name,'Model',true)}`
+    const name = `${utils.makeName(options.name, 'Model', true)}`
 
     /**
      * making path to model directory
      */
-    const modelPath = path.join(this.helpers.appPath(),`/Model/${name}.js`)
+    const modelPath = path.join(this.helpers.appPath(), `/Model/${name}.js`)
 
     /**
      * finding whether model already exists or not
@@ -80,19 +76,18 @@ class Model {
      * if model does not exists , take the pleasure for creating
      * a new one.
      */
-    if(!exists){
-
+    if (!exists) {
       /**
        * replacing {{name}} block with model name
        */
-      const nameRegex = new RegExp("{{name}}",'g')
+      const nameRegex = new RegExp('{{name}}', 'g')
 
-      modelString = modelString.replace(nameRegex,name)
+      modelString = modelString.replace(nameRegex, name)
 
       /**
        * creating model file
        */
-      yield fs.outputFile(modelPath,modelString)
+      yield fs.outputFile(modelPath, modelString)
       return `Created ${name}.js model successfully`
 
     }
@@ -105,6 +100,5 @@ class Model {
   }
 
 }
-
 
 module.exports = Model

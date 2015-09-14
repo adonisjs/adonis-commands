@@ -6,9 +6,9 @@
  * MIT Licensed
 */
 
-class Run{
+class Run {
 
-  constructor(Helpers,Database,Ansi){
+  constructor (Helpers, Database, Ansi) {
     this.helpers = Helpers
     this.database = Database
     this.ansi = Ansi
@@ -18,7 +18,7 @@ class Run{
    * command description
    * @return {String}
    */
-  get description(){
+  get description () {
     return 'Run latest migrations to create/modify database tables'
   }
 
@@ -26,7 +26,7 @@ class Run{
    * command signature used by ace
    * @return {String}
    */
-  get signature(){
+  get signature () {
     return 'migration:run {--force?}'
   }
 
@@ -37,8 +37,7 @@ class Run{
    * @param  {Object} flags
    * @return {String}
    */
-  *handle (options,flags){
-
+  * handle (options, flags) {
     /**
      * getting force flag , as by default we do not run
      * migrations in production environment
@@ -47,7 +46,7 @@ class Run{
 
     const self = this
 
-    if(process.env.NODE_ENV !== 'development' && !force){
+    if (process.env.NODE_ENV !== 'development' && !force) {
       throw new Error('Migrations can run in development environment only , use --force to run in other environments')
     }
 
@@ -60,28 +59,28 @@ class Run{
      * calling knex migration latest method
      */
     const run = yield this.database.migrate.latest({
-      directory : migrationPath,
+      directory: migrationPath,
       tableName: 'adonis_migrations'
     })
 
-    if(typeof(run) !== 'object' && run.length === 0){
+    if (typeof (run) !== 'object' && run.length === 0) {
       throw new Error('Unable to run migrations , make sure database is properly configured')
     }
 
     const batch = run[0]
     const files = run[1]
 
-    if(files.length === 1){
+    if (files.length === 1) {
       self.ansi.info('Already upto date')
     }
 
-    self.ansi.output('yellow',`\nRunning batch ${batch}`)
+    self.ansi.output('yellow', `\nRunning batch ${batch}`)
     files.forEach(function (file) {
-      console.log('  ' + file.replace(migrationPath,'migrations'),self.ansi.icon('success'))
+      console.log('  ' + file.replace(migrationPath, 'migrations'), self.ansi.icon('success'))
     })
 
   }
 
 }
 
-module.exports = Run;
+module.exports = Run

@@ -10,9 +10,9 @@ const pm2 = require('pm2')
 const path = require('path')
 const sh = require('shorthash')
 
-class Stop{
+class Stop {
 
-  constructor(Helpers,Ansi){
+  constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
   }
@@ -21,7 +21,7 @@ class Stop{
    * command description
    * @return {String}
    */
-  get description(){
+  get description () {
     return 'Stop running adonis server'
   }
 
@@ -29,7 +29,7 @@ class Stop{
    * command signature used by ace
    * @return {String}
    */
-  get signature(){
+  get signature () {
     return 'server:stop {--delete?}'
   }
 
@@ -40,26 +40,24 @@ class Stop{
    * @param  {Object} flags
    * @return {String}
    */
-  *handle (options,flags){
-
+  * handle (options, flags) {
     const self = this
     const method = flags.delete ? 'delete' : 'stop'
-    const scriptPath = path.join(this.helpers.basePath(),'./server.js')
+    const scriptPath = path.join(this.helpers.basePath(), './server.js')
     const processName = sh.unique(scriptPath)
 
     pm2.connect(function () {
-      pm2[method](processName, function (err,apps) {
-
-        if(err){
+      pm2[method](processName, function (err, apps) {
+        if (err) {
           /**
            * show error if there is an error
            */
           self.ansi.error(err.msg)
-        }else{
+        } else {
           /**
            * otherwise say process has been stopped
            */
-          console.log(`Stopped adonis process ${processName}`,self.ansi.icon('success'))
+          console.log(`Stopped adonis process ${processName}`, self.ansi.icon('success'))
         }
         pm2.disconnect()
 
@@ -69,4 +67,4 @@ class Stop{
   }
 }
 
-module.exports = Stop;
+module.exports = Stop

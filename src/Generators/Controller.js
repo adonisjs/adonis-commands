@@ -9,14 +9,14 @@
 const utils = require('./helpers')
 const fs = require('co-fs-extra')
 const path = require('path')
-const _ = require("lodash")
+const _ = require('lodash')
 
 /**
  * controller string that will be written to a
  * new controller , it contains dynamic
  * segments.
  */
-let controllerString = `'use strict';
+let controllerString = `'use strict'
 
 class {{name}} {
   {{index}}{{create}}{{store}}{{show}}{{update}}{{destroy}}
@@ -28,12 +28,11 @@ module.exports = {{name}}
 /**
  * methods to be on controller
 */
-const methods = ['index','create','store','show','update','destroy']
-
+const methods = ['index', 'create', 'store', 'show', 'update', 'destroy']
 
 class Controller {
 
-  constructor(Helpers,Ansi){
+  constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
   }
@@ -42,17 +41,16 @@ class Controller {
    * command description for people to understand stuff
    * @return {[type]} [description]
    */
-  get description(){
-    return 'Generate a new controller file by passing it\'s name'
+  get description () {
+    return "Generate a new controller file by passing it's name"
   }
 
   /**
    * i am going to return the signature required by ace
    */
-  get signature(){
+  get signature () {
     return 'make:controller {name:controller name} {--plain?}'
   }
-
 
   /**
    * @function handle
@@ -62,8 +60,7 @@ class Controller {
    * @param  {Object} flags
    * @return {*}
    */
-  * handle (options,flags){
-
+  * handle (options, flags) {
     /**
      * finding whether controller should be plaon or not
      */
@@ -72,12 +69,12 @@ class Controller {
     /**
      * making proper controller name with proper formatting
      */
-    const name = `${utils.makeName(options.name,'Controller')}`
+    const name = `${utils.makeName(options.name, 'Controller')}`
 
     /**
      * making path to controllers directory
      */
-    const controllerPath = path.join(this.helpers.appPath(),`/Http/Controllers/${name}.js`)
+    const controllerPath = path.join(this.helpers.appPath(), `/Http/Controllers/${name}.js`)
 
     /**
      * finding whether controller already exists or not
@@ -88,13 +85,11 @@ class Controller {
      * if controller does not exists , take the pleasure for creating
      * a new one.
      */
-    if(!exists){
-
+    if (!exists) {
       /**
        * replacing {{name}} block with controller name
        */
-      const nameRegex = new RegExp("{{name}}",'g')
-
+      const nameRegex = new RegExp('{{name}}', 'g')
 
       /**
        * ideally should be using a template engine to replace dynamic
@@ -102,27 +97,26 @@ class Controller {
        * strng
        */
       _.each(methods, function (method) {
-
         /**
          * if requested for a plain controller , replace method segments with
          * empty string
          * OTHERWISE
          * make a controller with all may be required functions
          */
-        if(plain){
-          controllerString = controllerString.replace(`{{${method}}}`,'')
-        }else{
+        if (plain) {
+          controllerString = controllerString.replace(`{{${method}}}`, '')
+        } else {
           controllerString = controllerString.replace(`{{${method}}}`, utils.makeControllerMethod(method))
         }
 
       })
 
-      controllerString = controllerString.replace(nameRegex,name)
+      controllerString = controllerString.replace(nameRegex, name)
 
       /**
        * creating controller file
        */
-      yield fs.outputFile(controllerPath,controllerString)
+      yield fs.outputFile(controllerPath, controllerString)
       return `Created ${name}.js controller successfully`
 
     }
@@ -135,6 +129,5 @@ class Controller {
   }
 
 }
-
 
 module.exports = Controller
