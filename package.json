@@ -4,7 +4,7 @@
   "description": "Set of core commands , shipped with adonis",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node maketest"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "adonis-fold": "^1.0.1",
     "chai": "^3.2.0",
     "co": "^4.6.0",
+    "knex": "^0.8.6",
     "mocha": "^2.3.2",
     "sqlite3": "^3.1.0"
   },
