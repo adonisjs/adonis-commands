@@ -7,11 +7,9 @@
 */
 
 const ServiceProvider = require('adonis-fold').ServiceProvider
-const Server = require('../src/Server')
 const Generators = require('../src/Generators')
-const Migrations = require('../src/Migrations')
 
-class CommandProvider extends ServiceProvider{
+class GeneratorProvider extends ServiceProvider{
 
   *register() {
 
@@ -88,30 +86,8 @@ class CommandProvider extends ServiceProvider{
     })
 
 
-    /*
-    |--------------------------------------------------------------------------
-    |   Migrations
-    |--------------------------------------------------------------------------
-    |
-    |   Here we have commands related to migrations , one can simple create
-    |   run and rollback migrations
-    |
-    */
-
-    this.app.bind('Adonis/Addons/Migration:Make', function (Adonis_Src_Helpers,Adonis_Src_Database) {
-      return new Migrations.Make(Adonis_Src_Helpers,Adonis_Src_Database)
-    })
-
-    this.app.bind('Adonis/Addons/Migration:Rollback', function (Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi) {
-      return new Migrations.Rollback(Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi)
-    })
-
-    this.app.bind('Adonis/Addons/Migration:Run', function (Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi) {
-      return new Migrations.Make(Adonis_Src_Helpers,Adonis_Src_Database,Adonis_Addons_Ansi)
-    })
-
   }
 
 }
 
-module.exports = CommandProvider
+module.exports = GeneratorProvider
