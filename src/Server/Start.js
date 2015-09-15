@@ -83,7 +83,7 @@ class Start {
       name: processName,
       max_memory_restart: maxMemoryRestart,
       watch: watchFiles,
-      node_args: '--harmony__proxies',
+      node_args: '--harmony_proxies',
       ignore_watch: [publicPath, resourcesPath, storagePath, migrationsPath],
       script: scriptPath
     }
