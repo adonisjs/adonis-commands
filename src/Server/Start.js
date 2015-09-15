@@ -12,6 +12,10 @@ const sh = require('shorthash')
 
 class Start {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config']
+  }
+
   constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
@@ -21,7 +25,7 @@ class Start {
    * command description
    * @return {String}
    */
-  get description () {
+  static get description () {
     return 'Start adonis server as a deamon'
   }
 
@@ -29,7 +33,7 @@ class Start {
    * command signature used by ace
    * @return {String}
    */
-  get signature () {
+  static get signature () {
     return 'server:start {--cluster?}'
   }
 

@@ -28,6 +28,10 @@ module.exports = {{name}}
 
 class Model {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Addons/Ansi']
+  }
+
   constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
@@ -37,14 +41,14 @@ class Model {
    * command description for people to understand stuff
    * @return {[type]} [description]
    */
-  get description () {
+  static get description () {
     return "Generate a new model file by passing it's name"
   }
 
   /**
    * i am going to return the signature required by ace
    */
-  get signature () {
+  static get signature () {
     return 'make:model {name:model name}'
   }
 

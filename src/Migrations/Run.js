@@ -10,6 +10,10 @@ const knex = require('knex')
 
 class Run {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config','Adonis/Addons/Ansi']
+  }
+
   constructor (Helpers, Env, Config, Ansi) {
     this.helpers = Helpers
     this.env = Env
@@ -21,7 +25,7 @@ class Run {
    * command description
    * @return {String}
    */
-  get description () {
+  static get description () {
     return 'Run latest migrations to create/modify database tables'
   }
 
@@ -29,7 +33,7 @@ class Run {
    * command signature used by ace
    * @return {String}
    */
-  get signature () {
+  static get signature () {
     return 'migration:run {--force?}'
   }
 

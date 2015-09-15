@@ -10,6 +10,10 @@ const knex = require('knex')
 
 class Rollback {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config','Adonis/Addons/Ansi']
+  }
+
   constructor (Helpers, Env, Config, Ansi) {
     this.helpers = Helpers
     this.env = Env
@@ -21,7 +25,7 @@ class Rollback {
    * command description
    * @return {String}
    */
-  get description () {
+  static get description () {
     return 'Rollback latest migrations'
   }
 
@@ -29,7 +33,7 @@ class Rollback {
    * command signature used by ace
    * @return {String}
    */
-  get signature () {
+  static get signature () {
     return 'migration:rollback {--force?}'
   }
 

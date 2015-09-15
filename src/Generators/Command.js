@@ -42,6 +42,10 @@ module.exports = {{name}}
 
 class Command {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Addons/Ansi']
+  }
+
   constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
@@ -50,14 +54,14 @@ class Command {
   /**
    * description for command to be used by --help
    */
-  get description () {
+  static get description () {
     return "Generate a new ace command file by passing it's name"
   }
 
   /**
    * returning signature required and used by ace
    */
-  get signature () {
+  static get signature () {
     return 'make:command {name:command name you want to use}'
   }
 

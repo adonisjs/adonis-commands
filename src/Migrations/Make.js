@@ -10,6 +10,10 @@ const knex = require('knex')
 
 class Make {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config']
+  }
+
   constructor (Helpers, Env, Config) {
     this.helpers = Helpers
     this.env = Env
@@ -20,7 +24,7 @@ class Make {
    * command description
    * @return {String}
    */
-  get description () {
+  static get description () {
     return 'Generate a new migration file'
   }
 
@@ -28,7 +32,7 @@ class Make {
    * command signature used by ace
    * @return {String}
    */
-  get signature () {
+  static get signature () {
     return 'migration:make {name}'
   }
 

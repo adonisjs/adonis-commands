@@ -14,6 +14,10 @@ const timediff = require('timediff')
 
 class Show {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config']
+  }
+
   constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
@@ -23,7 +27,7 @@ class Show {
    * command description
    * @return {String}
    */
-  get description () {
+  static get description () {
     return 'Show running server statistics'
   }
 
@@ -31,7 +35,7 @@ class Show {
    * command signature used by ace
    * @return {String}
    */
-  get signature () {
+  static get signature () {
     return 'server:show'
   }
 

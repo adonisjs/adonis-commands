@@ -12,6 +12,10 @@ const sh = require('shorthash')
 
 class Reload {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Addons/Ansi']
+  }
+
   constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
@@ -21,7 +25,7 @@ class Reload {
    * command description
    * @return {String}
    */
-  get description () {
+  static get description () {
     return 'Reload running adonis server'
   }
 
@@ -29,7 +33,7 @@ class Reload {
    * command signature used by ace
    * @return {String}
    */
-  get signature () {
+  static get signature () {
     return 'server:reload'
   }
 

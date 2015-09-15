@@ -7,26 +7,21 @@
 */
 
 const ServiceProvider = require('adonis-fold').ServiceProvider
-const Migrations = require('../src/Migrations')
 
 class MigrationsProvider extends ServiceProvider{
 
-  static get inject(){
-    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Src/Config','Adonis/Addons/Ansi']
-  }
-
   *register() {
 
-    this.app.bind('Adonis/Addons/Migration:Make', function (Helpers,Env,Config,Ansi) {
-      return new Migrations.Make(Helpers,Env,Config,Ansi)
+    this.app.bind('Adonis/Addons/Migration:Make', function () {
+      return require('../src/Migrations').Make
     })
 
-    this.app.bind('Adonis/Addons/Migration:Rollback', function (Helpers,Env,Config,Ansi) {
-      return new Migrations.Rollback(Helpers,Env,Config,Ansi)
+    this.app.bind('Adonis/Addons/Migration:Rollback', function () {
+      return require('../src/Migrations').Rollback
     })
 
-    this.app.bind('Adonis/Addons/Migration:Run', function (Helpers,Env,Config,Ansi) {
-      return new Migrations.Make(Helpers,Env,Config,Ansi)
+    this.app.bind('Adonis/Addons/Migration:Run', function () {
+      return require('../src/Migrations').Run
     })
 
   }

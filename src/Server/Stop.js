@@ -12,6 +12,10 @@ const sh = require('shorthash')
 
 class Stop {
 
+  static get inject() {
+    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config']
+  }
+
   constructor (Helpers, Ansi) {
     this.helpers = Helpers
     this.ansi = Ansi
@@ -21,7 +25,7 @@ class Stop {
    * command description
    * @return {String}
    */
-  get description () {
+  static get description () {
     return 'Stop running adonis server'
   }
 
@@ -29,7 +33,7 @@ class Stop {
    * command signature used by ace
    * @return {String}
    */
-  get signature () {
+  static get signature () {
     return 'server:stop {--delete?}'
   }
 
