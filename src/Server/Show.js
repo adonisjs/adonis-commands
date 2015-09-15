@@ -15,7 +15,7 @@ const timediff = require('timediff')
 class Show {
 
   static get inject() {
-    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config']
+    return ['Adonis/Src/Helpers','Adonis/Addons/Ansi']
   }
 
   constructor (Helpers, Ansi) {

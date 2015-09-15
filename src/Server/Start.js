@@ -13,7 +13,7 @@ const sh = require('shorthash')
 class Start {
 
   static get inject() {
-    return ['Adonis/Src/Helpers','Adonis/Src/Env','Adonis/Addons/Config']
+    return ['Adonis/Src/Helpers','Adonis/Addons/Ansi']
   }
 
   constructor (Helpers, Ansi) {
