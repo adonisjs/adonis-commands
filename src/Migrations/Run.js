@@ -94,6 +94,8 @@ class Run {
       tableName: 'adonis_migrations'
     })
 
+    database.destroy()
+
     if (typeof (run) !== 'object' && run.length === 0) {
       throw new Error('Unable to run migrations , make sure database is properly configured')
     }

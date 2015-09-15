@@ -90,6 +90,9 @@ class Make {
      * as string , if response is not a string , then something
      * went bad
      */
+
+    database.destroy()
+
     if (typeof (make) === 'string') {
       const migrationName = make.replace(migrationPath, 'migrations')
       return `Created ${migrationName} successfully !`

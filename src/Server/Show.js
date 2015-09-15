@@ -64,6 +64,8 @@ class Show {
            */
           if (list.length === 0) {
             self.ansi.info("There isn't any server running")
+            pm2.disconnect()
+            return
           }
 
           const server = list[0]
