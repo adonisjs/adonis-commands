@@ -12,26 +12,17 @@ const path = require('path')
 
 /**
  * template string that will be written to a
- * new command , it contains dynamic
+ * new middleware file , it contains dynamic
  * segments.
  */
-let commandString = `'use strict'
+let middlewareString = `'use strict'
 
-const Console = use("Console")
+class {{name}}{
 
-class {{name}} extends Console {
+  *handle (request, response , next) {
 
-  static get description(){
-    return 'Description for your command , it is good to have nice descriptions'
-  }
-
-  static get signature(){
-    return 'commandName {optionName} {optionName2} {--flog} {--flog2}'
-  }
-
-  *handle (options,flags) {
-
-    // handle your command executation here
+    // yield next once middleware expectation
+    // have been satisfied
 
   }
 
@@ -55,20 +46,20 @@ class Command {
    * description for command to be used by --help
    */
   static get description () {
-    return "Generate a new ace command file by passing it's name"
+    return "Generate a new HTTP middleware"
   }
 
   /**
    * returning signature required and used by ace
    */
   static get signature () {
-    return 'make:command {name:command name you want to use}'
+    return 'make:middleware {name:Middleware name you wish to use}'
   }
 
   /**
    * @function handle
    * @description executed by ace , this method makes a new
-   * terminal command file inside Commands directory
+   * middleware file inside Middleware directory
    * @param  {Object} options
    * @param  {Object} flags
    * @return {*}
@@ -77,20 +68,20 @@ class Command {
     /**
      * making proper command name with proper formatting
      */
-    const name = `${utils.makeName(options.name, 'Command', true)}`
+    const name = `${utils.makeName(options.name, 'Middleware', true)}`
 
     /**
-     * making path to commands directory
+     * making path to middleware directory
      */
-    const commandPath = path.join(this.helpers.appPath(), `/Commands/${name}.js`)
+    const middlewarePath = path.join(this.helpers.appPath(), `/Http/Middleware/${name}.js`)
 
     /**
-     * finding whether command already exists or not
+     * finding whether middleware already exists or not
      */
-    const exists = yield fs.exists(commandPath)
+    const exists = yield fs.exists(middlewarePath)
 
     /**
-     * if command does not exists , take the pleasure for creating
+     * if middleware does not exists , take the pleasure for creating
      * a new one.
      */
     if (!exists) {
@@ -99,13 +90,13 @@ class Command {
        */
       const nameRegex = new RegExp('{{name}}', 'g')
 
-      commandString = commandString.replace(nameRegex, name)
+      middlewareString = middlewareString.replace(nameRegex, name)
 
       /**
-       * creating command file
+       * creating middleware file
        */
-      yield fs.outputFile(commandPath, commandString)
-      return `Created ${name}.js command successfully`
+      yield fs.outputFile(middlewarePath, middlewareString)
+      return `Created ${name}.js middleware successfully`
 
     }
 

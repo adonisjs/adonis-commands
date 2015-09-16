@@ -3,6 +3,7 @@
 const ControllerGenerator = require('../src/Generators/Controller')
 const ModelGenerator = require('../src/Generators/Model')
 const CommandGenerator = require('../src/Generators/Command')
+const MiddlewareGenerator = require('../src/Generators/Middleware')
 const chai = require('chai')
 const expect = chai.expect
 const co = require('co')
@@ -26,11 +27,12 @@ describe('Generators' , function () {
   before(function (done) {
     const appPath = path.join(__dirname, './app')
     const controllersPath = path.join(appPath, '/Http/Controllers')
+    const middlewarePath = path.join(appPath, '/Http/Middleware')
     const modelsPath = path.join(appPath, '/Model')
     const commandsPath = path.join(appPath, '/Commands')
 
     co(function * () {
-      return yield [fsExtra.emptyDir(appPath), fsExtra.mkdirs(controllersPath), fsExtra.mkdirs(modelsPath), fsExtra.mkdirs(commandsPath)]
+      return yield [fsExtra.emptyDir(appPath), fsExtra.mkdirs(controllersPath), fsExtra.mkdirs(modelsPath), fsExtra.mkdirs(middlewarePath), fsExtra.mkdirs(commandsPath)]
     }).then(function (resp) {
       done()
     }).catch(done)
@@ -72,6 +74,20 @@ describe('Generators' , function () {
       return yield gen.handle({name: 'greetCommand'}, {})
     }).then(function (response) {
       fs.exists(path.join(__dirname, './app/Commands/Greet.js'), function (there) {
+        expect(there).to.equal(true)
+        done()
+      })
+    }).catch(done)
+
+  })
+
+  it('should generate a new middleware file', function (done) {
+    const gen = new MiddlewareGenerator(helpers, ansi)
+
+    co(function *() {
+      return yield gen.handle({name: 'Auth'}, {})
+    }).then(function (response) {
+      fs.exists(path.join(__dirname, './app/Http/Middleware/Auth.js'), function (there) {
         expect(there).to.equal(true)
         done()
       })

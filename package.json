@@ -4,7 +4,7 @@
   "description": "Set of core commands , shipped with adonis",
   "main": "index.js",
   "scripts": {
-    "test": "node maketest"
+    "test": "./node_modules/.bin/_mocha test --color --bail"
   },
   "author": "",
   "license": "ISC",
