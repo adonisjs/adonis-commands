@@ -40,6 +40,14 @@ class ServerProvider extends ServiceProvider{
       return require('../src/Server').Show
     })
 
+
+    /**
+     * binding a new command to ioc container , which will stream/flush logs
+     */
+    this.app.bind('Adonis/Addons/Server:Logs', function () {
+      return require('../src/Server').Logs
+    })
+
   }
 
 }
