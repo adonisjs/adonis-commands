@@ -49,8 +49,9 @@ class Start {
      * finding whether to run sever as a cluster or not
      */
     const scriptPath = path.join(this.helpers.basePath(), './server.js')
-    const cluster = options.cluster || false
+    const cluster = flags.cluster || false
     const execMode = cluster ? 'cluster' : 'fork'
+    const instances = cluster ? 'max' : 1
 
     /**
      * getting access to paths , which should be watched
@@ -84,6 +85,7 @@ class Start {
       max_memory_restart: maxMemoryRestart,
       watch: watchFiles,
       node_args: '--harmony_proxies',
+      instances: instances,
       ignore_watch: [publicPath, resourcesPath, storagePath, migrationsPath],
       script: scriptPath
     }
