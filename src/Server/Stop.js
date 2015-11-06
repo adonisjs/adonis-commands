@@ -26,7 +26,7 @@ class Stop {
    * @return {String}
    */
   static get description () {
-    return 'Stop running adonis server'
+    return 'Stop running adonis server --help for more info'
   }
 
   /**
