@@ -2,7 +2,6 @@
   "name": "adonis-commands",
   "version": "1.0.4",
   "description": "Set of core commands , shipped with adonis",
-  "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/_mocha test --color --bail"
   },
