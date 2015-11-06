@@ -26,7 +26,7 @@ class Start {
    * @return {String}
    */
   static get description () {
-    return 'Start adonis server as a deamon'
+    return 'Start adonis server as a deamon --help for more info'
   }
 
   /**
@@ -34,7 +34,7 @@ class Start {
    * @return {String}
    */
   static get signature () {
-    return 'server:start {--cluster?}'
+    return 'server:start {--exec_mode?} {--instances?} {--memory_limit?}'
   }
 
   /**
@@ -49,9 +49,9 @@ class Start {
      * finding whether to run sever as a cluster or not
      */
     const scriptPath = path.join(this.helpers.basePath(), './server.js')
-    const cluster = flags.cluster || false
-    const execMode = cluster ? 'cluster' : 'fork'
-    const instances = cluster ? 'max' : 1
+    const execMode = flags.exec_mode === 'cluster' ? flags.exec_mode : 'fork'
+    const instances = flags.instances === 'max' || this.isNumeric(flags.instances) ? flags.instances : 1
+    const memoryLimit = this.isNumeric(flags.memory_limit) ? flags.memory_limit : 100
 
     /**
      * getting access to paths , which should be watched
@@ -72,7 +72,7 @@ class Start {
      * setting up max memory restart
      * @type {String}
      */
-    const maxMemoryRestart = '100M'
+    const maxMemoryRestart = memoryLimit + 'M'
 
     const self = this
 
