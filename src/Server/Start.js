@@ -37,6 +37,10 @@ class Start {
     return 'server:start {--exec_mode?} {--instances?} {--memory_limit?}'
   }
 
+  isNumeric(number) {
+    return !isNaN(parseFloat(number)) && isFinite(number);
+  }
+
   /**
    * @function handle
    * @description invoked by ace is a method to start pm2 server
