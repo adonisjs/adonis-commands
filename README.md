@@ -24,3 +24,8 @@ exports.seed = function(knex, Promise) {
 };
 ```
 P.S.: for better experience use [Faker.js](https://github.com/marak/faker.js) to generate test fake data.
+
+### Seed run
+For running all seeding process use
+
+command `./ace seed:run`
