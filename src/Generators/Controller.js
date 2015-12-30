@@ -14,7 +14,7 @@ const methods = ['index', 'create', 'store', 'show', 'update', 'destroy']
 
 let Controller = exports = module.exports = {}
 
-Controller.description = 'Generate a new controller file by passing it\'s name'
+Controller.description = "Generate a new controller file by passing it's name"
 Controller.signature = '{name:controller name} {--plain?}'
 
 /**
@@ -45,8 +45,7 @@ Controller.handle = function * (options, flags) {
   try {
     const response = yield utils.generateBlueprint(formattedControllerString, controllerPath, name)
     Console.success(response)
-  }
-  catch (e) {
+  } catch (e) {
     Console.error(e.message)
   }
 }
