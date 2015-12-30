@@ -22,7 +22,7 @@ class GeneratorProvider extends ServiceProvider {
      * binding a new command to ioc container, which will scaffold a new terminal command
      */
     this.app.bind('Adonis/Commands/Generate:Command', function () {
-      return require('../src/Generators').Model
+      return require('../src/Generators').Command
     })
 
     /**
