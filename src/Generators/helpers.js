@@ -7,6 +7,7 @@
 */
 
 const changeCase = require('change-case')
+const fs = require('co-fs-extra')
 
 /**
  * @module helpers
@@ -14,9 +15,9 @@ const changeCase = require('change-case')
 let helpers = exports = module.exports = {}
 
 /**
- * @function makeName
  * @description this method returns a properly formatted name for any
  * given entity , see below example
+ * @method makeName
  * @example
  *
  *  User - Controller           = UserController
@@ -33,6 +34,7 @@ let helpers = exports = module.exports = {}
  * @param  {String} entity
  * @param  {Boolean} replace
  * @return {String}
+ * @public
  */
 helpers.makeName = function (name, entity, replace) {
   name = changeCase.snakeCase(name).replace(entity.toLowerCase(), '')
@@ -41,14 +43,34 @@ helpers.makeName = function (name, entity, replace) {
 }
 
 /**
- * @function makeControllerMethod
  * @description return a method to be placed inside controller template
+ * @method makeControllerMethod
  * @param  {String} name
  * @return {String}
+ * @public
  */
 helpers.makeControllerMethod = function (name) {
   return `
-    *${name} (request,response) {
+    * ${name} (request, response) {}`
+}
 
-    }`
+/**
+ * @description generates the blueprint file with it's contents
+ * @method
+ * @param  {String} contents
+ * @param  {String} filePath
+ * @param  {String} name
+ * @return {String}
+ * @throws error when file already exists
+ */
+helpers.generateBlueprint = function * (contents, filePath, name) {
+  const exists = yield fs.exists(filePath)
+  if(exists) {
+    throw new Error(`I am afraid ${name}.js already exists and i cannot overwrite it`)
+  }
+
+  const nameRegex = new RegExp('{{name}}', 'g')
+  contents = contents.replace(nameRegex, name)
+  yield fs.outputFile(filePath, contents)
+  return `Created ${name}.js command successfully`
 }
