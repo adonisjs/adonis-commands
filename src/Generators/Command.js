@@ -13,7 +13,7 @@ const commandString = require('./strings').command
 
 let Command = exports = module.exports = {}
 
-Command.description = 'Generate a new ace command file by passing it\'s name'
+Command.description = "Generate a new ace command file by passing it's name"
 Command.signature = '{name:command name you want to use}'
 
 /**
@@ -30,11 +30,10 @@ Command.handle = function * (options, flags) {
   const Console = Ioc.use('Adonis/Src/Console')
   const name = `${utils.makeName(options.name, 'Command', true)}`
   const commandPath = path.join(Helpers.appPath(), `/Commands/${name}.js`)
-  try{
+  try {
     const response = yield utils.generateBlueprint(commandString, commandPath, name)
     Console.success(response)
-  }
-  catch (e) {
+  } catch (e) {
     Console.error(e.message)
   }
 }

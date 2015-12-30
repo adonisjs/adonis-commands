@@ -30,11 +30,10 @@ Model.handle = function * (options, flags) {
   const Console = Ioc.use('Adonis/Src/Console')
   const name = `${utils.makeName(options.name, 'Model', true)}`
   const modelPath = path.join(Helpers.appPath(), `Model/${name}.js`)
-  try{
+  try {
     const response = yield utils.generateBlueprint(modelString, modelPath, name)
     Console.success(response)
-  }
-  catch (e) {
+  } catch (e) {
     Console.error(e.message)
   }
 }

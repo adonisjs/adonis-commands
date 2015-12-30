@@ -65,7 +65,7 @@ helpers.makeControllerMethod = function (name) {
  */
 helpers.generateBlueprint = function * (contents, filePath, name) {
   const exists = yield fs.exists(filePath)
-  if(exists) {
+  if (exists) {
     throw new Error(`I am afraid ${name}.js already exists and i cannot overwrite it`)
   }
 

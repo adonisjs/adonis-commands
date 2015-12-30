@@ -30,11 +30,10 @@ Middleware.handle = function * (options, flags) {
   const Console = Ioc.use('Adonis/Src/Console')
   const name = `${utils.makeName(options.name, 'Middleware', true)}`
   const middlewarePath = path.join(Helpers.appPath(), `/Http/Middleware/${name}.js`)
-  try{
+  try {
     const response = yield utils.generateBlueprint(middlewareString, middlewarePath, name)
     Console.success(response)
-  }
-  catch (e) {
+  } catch (e) {
     Console.error(e.message)
   }
 }
