@@ -1,5 +1,8 @@
 # Adonis Commands
 
+![](https://img.shields.io/travis/adonisjs/adonis-commands.svg)
+[![Coverage Status](https://coveralls.io/repos/adonisjs/adonis-commands/badge.svg?branch=master&service=github)](https://coveralls.io/github/adonisjs/adonis-commands?branch=master)
+
 Adonis commands are official set of commands shipped with brand new installation of [Adonis Framework](http://adonisjs.com/)
 
 ## The MIT License
