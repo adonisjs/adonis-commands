@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "_mocha test --color --bail",
-    "coverage": "istanbul cover _mocha test --bail"
+    "coverage": "istanbul cover _mocha test --bail",
+    "standard": "standard test/*.js providers/*.js src/**/*.js"
   },
   "author": "adonisjs",
   "license": "MIT",
