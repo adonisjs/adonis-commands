@@ -1,34 +1,45 @@
 {
   "name": "adonis-commands",
-  "version": "1.0.4",
-  "description": "Set of core commands , shipped with adonis",
+  "version": "2.0.0",
+  "description": "Set of core commands, shipped with adonis",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/_mocha test --color --bail"
+    "test": "npm run standard && istanbul cover _mocha --report lcovonly -- -R spec test && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "coverage": "istanbul cover _mocha test --bail",
+    "standard": "standard test/*.js providers/*.js src/**/*.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "adonisjs",
+  "license": "MIT",
   "devDependencies": {
-    "adonis-ace": "^1.0.1",
-    "adonis-fold": "^1.0.1",
+    "adonis-fold": "^2.0.0",
     "chai": "^3.2.0",
-    "co": "^4.6.0",
-    "knex": "^0.8.6",
+    "co-mocha": "^1.1.2",
+    "coveralls": "^2.11.6",
+    "istanbul": "^0.4.1",
     "mocha": "^2.3.2",
-    "sqlite3": "^3.1.0"
+    "mocha-lcov-reporter": "^1.0.0",
+    "standard": "^5.4.1"
   },
   "peerDependencies": {
-    "adonis-fold": "*",
-    "adonis-ace": "*"
+    "adonis-fold": "^2.0.0"
   },
   "dependencies": {
     "change-case": "^2.3.0",
-    "knex": "^0.8.6",
-    "co-fs-extra": "^1.1.0",
-    "lodash": "^3.10.1",
-    "pm2": "^0.14.7",
-    "prettysize": "0.0.3",
-    "shorthash": "0.0.2",
-    "timediff": "^1.1.1"
-  }
+    "co-fs-extra": "^1.1.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adonisjs/adonis-commands.git"
+  },
+  "keywords": [
+    "generators",
+    "adonis"
+  ],
+  "bugs": {
+    "url": "https://github.com/adonisjs/adonis-commands/issues"
+  },
+  "homepage": "https://github.com/adonisjs/adonis-commands#readme"
 }
