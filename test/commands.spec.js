@@ -5,7 +5,7 @@
  * Copyright(c) 2015-2015 Harminder Virk
  * MIT Licensed
 */
-
+/* global it,describe,context,before,after */
 const Ioc = require('adonis-fold').Ioc
 const chai = require('chai')
 const expect = chai.expect
@@ -28,13 +28,12 @@ describe('Generators', function () {
         error: function (error) {
           globalError = error
         },
-        success: function (){}
+        success: function () {}
       }
     })
     Ioc.alias('Console', 'Adonis/Src/Console')
   })
   context('Helpers', function () {
-
     before(function * () {
       yield fs.emptydir(path.join(__dirname, './blueprints'))
     })
@@ -67,7 +66,7 @@ describe('Generators', function () {
       expect(newName).to.equal('User')
     })
 
-    it('should make controller method by passing it\'s name', function () {
+    it("should make controller method by passing it's name", function () {
       const name = 'index'
       const method = GeneratorHelpers.makeControllerMethod(name)
       expect(method.trim()).to.equal(`* ${name} (request, response) {}`)
@@ -76,7 +75,7 @@ describe('Generators', function () {
     it('should generate blueprint with given content to a given path', function * () {
       const name = 'UserController'
       const contents = 'module.exports = function ({})'
-      const response = yield GeneratorHelpers.generateBlueprint(contents, path.join(__dirname,'./blueprints/userController.js'), name)
+      const response = yield GeneratorHelpers.generateBlueprint(contents, path.join(__dirname, './blueprints/userController.js'), name)
       expect(response).to.match(/Created UserController/)
     })
 
@@ -84,7 +83,7 @@ describe('Generators', function () {
       const name = 'UserController'
       const contents = 'module.exports = function ({})'
       try {
-        yield GeneratorHelpers.generateBlueprint(contents, path.join(__dirname,'./blueprints/userController.js'), name)
+        yield GeneratorHelpers.generateBlueprint(contents, path.join(__dirname, './blueprints/userController.js'), name)
       } catch (e) {
         expect(e.message).to.match(/I am afraid/)
       }
@@ -120,7 +119,6 @@ describe('Generators', function () {
       yield CommandGenerator.handle({name: 'Greet'}, {})
       expect(globalError).to.match(/I am afraid Greet.js already exists/)
     })
-
   })
 
   context('Controllers', function () {
@@ -154,7 +152,7 @@ describe('Generators', function () {
     })
 
     it('should generate a plain controller when plain flag is passed', function * () {
-      yield ControllerGenerator.handle({name: 'Accounts'}, {plain:true})
+      yield ControllerGenerator.handle({name: 'Accounts'}, {plain: true})
       const AccountsController = require(path.join(__dirname, './Http/Controllers/AccountsController.js'))
       const accounts = new AccountsController()
       expect(accounts.index).to.equal(undefined)
@@ -169,7 +167,6 @@ describe('Generators', function () {
       yield ControllerGenerator.handle({name: 'Accounts'}, {})
       expect(globalError).to.match(/I am afraid AccountsController.js already exists/)
     })
-
   })
 
   context('Middleware', function () {
@@ -201,7 +198,6 @@ describe('Generators', function () {
       yield MiddlewareGenerator.handle({name: 'CorsMiddleware'}, {})
       expect(globalError).to.match(/I am afraid Cors.js already exists/)
     })
-
   })
 
   context('Model', function () {
@@ -211,7 +207,8 @@ describe('Generators', function () {
       }
     }
 
-    class Lucid {}
+    class Lucid {
+    }
 
     before(function * () {
       Ioc.bind('Adonis/Src/Helpers', function () {
@@ -239,5 +236,4 @@ describe('Generators', function () {
       expect(globalError).to.match(/I am afraid User.js already exists/)
     })
   })
-
 })
