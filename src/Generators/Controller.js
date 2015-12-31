@@ -28,7 +28,7 @@ Controller.signature = '{name:controller name} {--plain?}'
  */
 Controller.handle = function * (options, flags) {
   const Helpers = Ioc.use('Adonis/Src/Helpers')
-  const Console = Ioc.use('Adonis/Src/Console')
+  const Ansi = Ioc.use('Adonis/Src/Ansi')
   const plain = flags.plain || false
   const name = `${utils.makeName(options.name, 'Controller')}`
   const controllerPath = path.join(Helpers.appPath(), `/Http/Controllers/${name}.js`)
@@ -44,8 +44,8 @@ Controller.handle = function * (options, flags) {
 
   try {
     const response = yield utils.generateBlueprint(formattedControllerString, controllerPath, name)
-    Console.success(response)
+    Ansi.success(response)
   } catch (e) {
-    Console.error(e.message)
+    Ansi.error(e.message)
   }
 }

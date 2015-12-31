@@ -10,7 +10,7 @@ let strings = exports = module.exports = {}
 
 strings.command = `'use strict'
 
-const Console = use("Console")
+const Ansi = use("Ansi")
 
 class {{name}} {
 

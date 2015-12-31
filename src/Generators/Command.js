@@ -27,13 +27,13 @@ Command.signature = '{name:command name you want to use}'
  */
 Command.handle = function * (options, flags) {
   const Helpers = Ioc.use('Adonis/Src/Helpers')
-  const Console = Ioc.use('Adonis/Src/Console')
+  const Ansi = Ioc.use('Adonis/Src/Ansi')
   const name = `${utils.makeName(options.name, 'Command', true)}`
   const commandPath = path.join(Helpers.appPath(), `/Commands/${name}.js`)
   try {
     const response = yield utils.generateBlueprint(commandString, commandPath, name)
-    Console.success(response)
+    Ansi.success(response)
   } catch (e) {
-    Console.error(e.message)
+    Ansi.error(e.message)
   }
 }

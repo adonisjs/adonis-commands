@@ -27,13 +27,13 @@ Middleware.signature = '{name:Middleware name you wish to use}'
  */
 Middleware.handle = function * (options, flags) {
   const Helpers = Ioc.use('Adonis/Src/Helpers')
-  const Console = Ioc.use('Adonis/Src/Console')
+  const Ansi = Ioc.use('Adonis/Src/Ansi')
   const name = `${utils.makeName(options.name, 'Middleware', true)}`
   const middlewarePath = path.join(Helpers.appPath(), `/Http/Middleware/${name}.js`)
   try {
     const response = yield utils.generateBlueprint(middlewareString, middlewarePath, name)
-    Console.success(response)
+    Ansi.success(response)
   } catch (e) {
-    Console.error(e.message)
+    Ansi.error(e.message)
   }
 }

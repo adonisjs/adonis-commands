@@ -27,13 +27,13 @@ Model.signature = '{name:Model name you wish to use}'
  */
 Model.handle = function * (options, flags) {
   const Helpers = Ioc.use('Adonis/Src/Helpers')
-  const Console = Ioc.use('Adonis/Src/Console')
+  const Ansi = Ioc.use('Adonis/Src/Ansi')
   const name = `${utils.makeName(options.name, 'Model', true)}`
   const modelPath = path.join(Helpers.appPath(), `Model/${name}.js`)
   try {
     const response = yield utils.generateBlueprint(modelString, modelPath, name)
-    Console.success(response)
+    Ansi.success(response)
   } catch (e) {
-    Console.error(e.message)
+    Ansi.error(e.message)
   }
 }
