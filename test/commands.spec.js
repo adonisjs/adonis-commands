@@ -23,7 +23,7 @@ let globalError = ''
 
 describe('Generators', function () {
   before(function () {
-    Ioc.bind('Adonis/Src/Console', function () {
+    Ioc.bind('Adonis/Src/Ansi', function () {
       return {
         error: function (error) {
           globalError = error
@@ -31,7 +31,7 @@ describe('Generators', function () {
         success: function () {}
       }
     })
-    Ioc.alias('Console', 'Adonis/Src/Console')
+    Ioc.alias('Ansi', 'Adonis/Src/Ansi')
   })
   context('Helpers', function () {
     before(function * () {
