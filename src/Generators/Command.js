@@ -31,7 +31,7 @@ Command.handle = function * (options, flags) {
   const name = `${utils.makeName(options.name, 'Command', true)}`
   const commandPath = path.join(Helpers.appPath(), `/Commands/${name}.js`)
   try {
-    const response = yield utils.generateBlueprint(commandString, commandPath, name)
+    const response = yield utils.generateBlueprint(commandString, commandPath, name, 'command')
     Ansi.success(response)
   } catch (e) {
     Ansi.error(e.message)

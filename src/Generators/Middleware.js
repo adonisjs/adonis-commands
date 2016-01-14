@@ -31,7 +31,7 @@ Middleware.handle = function * (options, flags) {
   const name = `${utils.makeName(options.name, 'Middleware', true)}`
   const middlewarePath = path.join(Helpers.appPath(), `/Http/Middleware/${name}.js`)
   try {
-    const response = yield utils.generateBlueprint(middlewareString, middlewarePath, name)
+    const response = yield utils.generateBlueprint(middlewareString, middlewarePath, name, 'middleware')
     Ansi.success(response)
   } catch (e) {
     Ansi.error(e.message)

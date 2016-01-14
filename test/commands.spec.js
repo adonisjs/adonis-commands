@@ -20,6 +20,7 @@ const MiddlewareGenerator = require('../src/Generators/Middleware')
 const ModelGenerator = require('../src/Generators/Model')
 
 let globalError = ''
+let globalSuccess = ''
 
 describe('Generators', function () {
   before(function () {
@@ -28,7 +29,9 @@ describe('Generators', function () {
         error: function (error) {
           globalError = error
         },
-        success: function () {}
+        success: function (success) {
+          globalSuccess = success
+        }
       }
     })
     Ioc.alias('Ansi', 'Adonis/Src/Ansi')
@@ -79,6 +82,13 @@ describe('Generators', function () {
       expect(response).to.match(/Created UserController/)
     })
 
+    it('should generate blueprint and return message should have entity name inside it', function * () {
+      const name = 'NewController'
+      const contents = 'module.exports = function ({})'
+      const response = yield GeneratorHelpers.generateBlueprint(contents, path.join(__dirname, './blueprints/NewController.js'), name, 'controller')
+      expect(response).to.match(/Created NewController\.js controller/)
+    })
+
     it('should throw an error when file already exists', function * () {
       const name = 'UserController'
       const contents = 'module.exports = function ({})'
@@ -109,6 +119,7 @@ describe('Generators', function () {
 
     it('should generate a new command using command handle method', function * () {
       yield CommandGenerator.handle({name: 'Greet'})
+      expect(globalSuccess).to.match(/Created Greet\.js command/)
       const Command = require(path.join(__dirname, './Commands/Greet.js'))
       expect(Command.description).to.be.a('string')
       expect(Command.signature).to.be.a('string')
@@ -141,6 +152,7 @@ describe('Generators', function () {
 
     it('should generate a new controller using controller handle method', function * () {
       yield ControllerGenerator.handle({name: 'User'}, {})
+      expect(globalSuccess).to.match(/Created UserController\.js controller/)
       const UserController = require(path.join(__dirname, './Http/Controllers/UserController.js'))
       const user = new UserController()
       expect(user.index).to.be.a('function')
@@ -189,6 +201,7 @@ describe('Generators', function () {
 
     it('should generate a new middleware using middleware handle method', function * () {
       yield MiddlewareGenerator.handle({name: 'CorsMiddleware'}, {})
+      expect(globalSuccess).to.match(/Created Cors\.js middleware/)
       const Cors = require(path.join(__dirname, './Http/Middleware/Cors.js'))
       const cors = new Cors()
       expect(cors.handle).to.be.a('function')
@@ -226,6 +239,7 @@ describe('Generators', function () {
 
     it('should generate a new model using model handle method', function * () {
       yield ModelGenerator.handle({name: 'UserModel'}, {})
+      expect(globalSuccess).to.match(/Created User\.js model/)
       const User = require(path.join(__dirname, './Model/User.js'))
       const user = new User()
       expect(user instanceof Lucid).to.equal(true)
