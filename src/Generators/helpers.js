@@ -60,10 +60,11 @@ helpers.makeControllerMethod = function (name) {
  * @param  {String} contents
  * @param  {String} filePath
  * @param  {String} name
+ * @param  {String} entity
  * @return {String}
  * @throws error when file already exists
  */
-helpers.generateBlueprint = function * (contents, filePath, name) {
+helpers.generateBlueprint = function * (contents, filePath, name, entity) {
   const exists = yield fs.exists(filePath)
   if (exists) {
     throw new Error(`I am afraid ${name}.js already exists and i cannot overwrite it`)
@@ -72,5 +73,5 @@ helpers.generateBlueprint = function * (contents, filePath, name) {
   const nameRegex = new RegExp('{{name}}', 'g')
   contents = contents.replace(nameRegex, name)
   yield fs.outputFile(filePath, contents)
-  return `Created ${name}.js command successfully`
+  return `Created ${name}.js ${entity} successfully`
 }

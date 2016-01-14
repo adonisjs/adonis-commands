@@ -43,7 +43,7 @@ Controller.handle = function * (options, flags) {
   })
 
   try {
-    const response = yield utils.generateBlueprint(formattedControllerString, controllerPath, name)
+    const response = yield utils.generateBlueprint(formattedControllerString, controllerPath, name, 'controller')
     Ansi.success(response)
   } catch (e) {
     Ansi.error(e.message)

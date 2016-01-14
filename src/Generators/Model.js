@@ -31,7 +31,7 @@ Model.handle = function * (options, flags) {
   const name = `${utils.makeName(options.name, 'Model', true)}`
   const modelPath = path.join(Helpers.appPath(), `Model/${name}.js`)
   try {
-    const response = yield utils.generateBlueprint(modelString, modelPath, name)
+    const response = yield utils.generateBlueprint(modelString, modelPath, name, 'model')
     Ansi.success(response)
   } catch (e) {
     Ansi.error(e.message)
