@@ -10,7 +10,7 @@ const utils = require('./helpers')
 const path = require('path')
 const Ioc = require('adonis-fold').Ioc
 const controllerString = require('./strings').controller
-const methods = ['index', 'create', 'store', 'show', 'update', 'destroy']
+const methods = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']
 
 let Controller = exports = module.exports = {}
 
