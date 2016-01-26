@@ -34,7 +34,7 @@ module.exports = {{name}}
 strings.controller = `'use strict'
 
 class {{name}} {
-  {{index}}{{create}}{{store}}{{show}}{{update}}{{destroy}}
+  {{index}}{{create}}{{store}}{{show}}{{edit}}{{update}}{{destroy}}
 }
 
 module.exports = {{name}}
