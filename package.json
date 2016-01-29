@@ -1,6 +1,6 @@
 {
   "name": "adonis-commands",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Set of core commands, shipped with adonis",
   "main": "index.js",
   "scripts": {
