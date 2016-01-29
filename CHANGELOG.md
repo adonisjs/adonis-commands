@@ -1,3 +1,17 @@
+<a name="2.0.3"></a>
+## 2.0.3 (2016-01-29)
+
+
+### Bug Fixes
+
+* **controller:** add one restful method ([f5ea8e1](https://github.com/adonisjs/adonis-commands/commit/f5ea8e1))
+
+### Features
+
+* **package:** added commitizen ([24de170](https://github.com/adonisjs/adonis-commands/commit/24de170))
+
+
+
 <a name="2.0.2"></a>
 ## 2.0.2 (2016-01-14)
 
