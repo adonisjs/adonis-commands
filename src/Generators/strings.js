@@ -10,7 +10,7 @@ let strings = exports = module.exports = {}
 
 strings.command = `'use strict'
 
-const Ansi = use("Ansi")
+const Ansi = use('Ansi')
 
 class {{name}} {
 
@@ -56,7 +56,7 @@ module.exports = {{name}}
 
 strings.model = `'use strict'
 
-const Lucid = use("Lucid")
+const Lucid = use('Lucid')
 
 class {{name}} extends Lucid {
 
