@@ -8,6 +8,7 @@
 
 const changeCase = require('change-case')
 const fs = require('co-fs-extra')
+const pope = require('pope')
 
 /**
  * @module helpers
@@ -64,14 +65,15 @@ helpers.makeControllerMethod = function (name) {
  * @return {String}
  * @throws error when file already exists
  */
-helpers.generateBlueprint = function * (contents, filePath, name, entity) {
+helpers.generateBlueprint = function * (contents, filePath, name, entity, options) {
+  options = options || {}
   const exists = yield fs.exists(filePath)
   if (exists) {
     throw new Error(`I am afraid ${name}.js already exists and i cannot overwrite it`)
   }
 
-  const nameRegex = new RegExp('{{name}}', 'g')
-  contents = contents.replace(nameRegex, name)
+  options.name = name
+  contents = pope(contents, options)
   yield fs.outputFile(filePath, contents)
   return `Created ${name}.js ${entity} successfully`
 }
