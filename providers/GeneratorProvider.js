@@ -38,6 +38,13 @@ class GeneratorProvider extends ServiceProvider {
     this.app.bind('Adonis/Commands/Generate:Middleware', function () {
       return require('../src/Generators').Middleware
     })
+
+    /**
+     * binding a new command to ioc container, which will scaffold a migration
+     */
+    this.app.bind('Adonis/Commands/Generate:Migration', function () {
+      return require('../src/Generators').Migration
+    })
   }
 
 }

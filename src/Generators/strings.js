@@ -64,3 +64,22 @@ class {{name}} extends Lucid {
 
 module.exports = {{name}}
 `
+
+strings.schema = `'use strict'
+
+const Schema = use('Schema')
+
+class {{name}} extends Schema {
+
+  up () {
+    {{up}}
+  }
+
+  down () {
+    {{down}}
+  }
+
+}
+
+module.exports = {{name}}
+`
