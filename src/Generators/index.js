@@ -10,6 +10,6 @@ module.exports = {
   Command: require('./Command'),
   Controller: require('./Controller'),
   Model: require('./Model'),
-  Middleware: require('./Middleware')
+  Middleware: require('./Middleware'),
   Migration: require('./Migration')
 }
