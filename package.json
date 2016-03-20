@@ -1,6 +1,6 @@
 {
   "name": "adonis-commands",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Set of core commands, shipped with adonis",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,9 @@
   },
   "dependencies": {
     "change-case": "^2.3.0",
-    "co-fs-extra": "^1.1.0"
+    "co-fs-extra": "^1.1.0",
+    "inflect": "^0.3.0",
+    "pope": "^1.0.0"
   },
   "directories": {
     "test": "test"

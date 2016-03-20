@@ -16,6 +16,7 @@ require('co-mocha')
 const GeneratorHelpers = require('../src/Generators/helpers')
 const ControllerGenerator = require('../src/Generators/Controller')
 const CommandGenerator = require('../src/Generators/Command')
+const MigrationGenerator = require('../src/Generators/Migration')
 const MiddlewareGenerator = require('../src/Generators/Middleware')
 const ModelGenerator = require('../src/Generators/Model')
 
@@ -250,6 +251,44 @@ describe('Generators', function () {
     it('should handle error silently and make use of console error method to print the error', function * () {
       yield ModelGenerator.handle({name: 'UserModel'}, {})
       expect(globalError).to.match(/I am afraid User.js already exists/)
+    })
+  })
+
+  context('Migrations', function () {
+    const Helpers = {
+      migrationsPath: function (file) {
+        return path.join(__dirname, './migrations/', file)
+      }
+    }
+
+    class Schema {
+    }
+
+    before(function * () {
+      Ioc.bind('Adonis/Src/Helpers', function () {
+        return Helpers
+      })
+      Ioc.bind('Schema', function () {
+        return Schema
+      })
+      yield fs.emptydir(path.join(__dirname, './migrations'))
+    })
+
+    after(function * () {
+      yield fs.emptydir(path.join(__dirname, './migrations'))
+    })
+
+    it('should generate a new migration file using migration handle method', function * () {
+      yield MigrationGenerator.handle({name: 'User'}, {table: true})
+      expect(globalSuccess).to.match(/Created UserSchema\.js migration/)
+      const User = require(path.join(__dirname, './migrations/UserSchema.js'))
+      const user = new User()
+      expect(user instanceof Schema).to.equal(true)
+    })
+
+    it('should handle error silently and make use of console error method to print the error', function * () {
+      yield MigrationGenerator.handle({name: 'User'}, {})
+      expect(globalError).to.match(/I am afraid UserSchema.js already exists/)
     })
   })
 })

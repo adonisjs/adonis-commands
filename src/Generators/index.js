@@ -11,4 +11,5 @@ module.exports = {
   Controller: require('./Controller'),
   Model: require('./Model'),
   Middleware: require('./Middleware')
+  Migration: require('./Migration')
 }
