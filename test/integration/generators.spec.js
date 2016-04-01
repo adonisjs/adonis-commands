@@ -112,4 +112,12 @@ describe('Generators', function () {
       expect(CorsMiddleware.name).to.equal('Cors')
     })
   })
+
+  context('Seed', function () {
+    it('should create a seed file', function * () {
+      yield setup.invokeCommand('make:seed', ['User'], {})
+      const UserSeeder = require('./app/seeds/User.js')
+      expect(UserSeeder.name).to.equal('UserSeeder')
+    })
+  })
 })

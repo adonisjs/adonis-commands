@@ -25,6 +25,9 @@ const Helpers = {
   },
   basePath: function () {
     return this.appPath()
+  },
+  seedsPath: function (file) {
+    return path.join(__dirname, '../app/seeds/', file)
   }
 }
 class Schema {}
@@ -48,12 +51,15 @@ setup.registerProviders = () => {
   fold.Ioc.bind('Lucid', function () {
     return Lucid
   })
+  fold.Ioc.bind('Factory', function () {
+    return {}
+  })
   fold.Ioc.alias('Command', 'Adonis/Src/Command')
   return fold.Registrar.register(['adonis-ace/providers/CommandProvider', path.join(__dirname, '../../../providers/GeneratorsProvider')])
 }
 
 setup.registerCommands = () => {
-  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model', 'Adonis/Commands/Make:View', 'Adonis/Commands/Make:Command', 'Adonis/Commands/Make:Hook', 'Adonis/Commands/Make:Middleware'])
+  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model', 'Adonis/Commands/Make:View', 'Adonis/Commands/Make:Command', 'Adonis/Commands/Make:Hook', 'Adonis/Commands/Make:Middleware', 'Adonis/Commands/Make:Seed'])
 }
 
 setup.invokeCommand = (command, args, options) => {
