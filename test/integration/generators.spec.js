@@ -88,4 +88,20 @@ describe('Generators', function () {
       expect(GreetCommand.name).to.equal('Greet')
     })
   })
+
+  context('Hook', function () {
+    it('should create a hook', function * () {
+      yield setup.invokeCommand('make:hook', ['user'], {})
+      const userHook = require('./app/Model/Hooks/user.js')
+      expect(userHook).to.be.an('object')
+      expect(userHook.methodName).to.be.a('function')
+    })
+
+    it('should create a hook with a given method', function * () {
+      yield setup.invokeCommand('make:hook', ['account'], {method: 'validate'})
+      const accountHook = require('./app/Model/Hooks/account.js')
+      expect(accountHook).to.be.an('object')
+      expect(accountHook.validate).to.be.a('function')
+    })
+  })
 })
