@@ -56,7 +56,7 @@ class ModelGenerator extends BaseGenerator {
       connection: options.connection
     }
     yield this.write('model', toPath, templateOptions)
-    this.completed('create', templateName)
+    this._logCreate(this.helpers.basePath(), toPath)
     if (options.migration) {
       const migrationOptions = {
         connection: options.connection,

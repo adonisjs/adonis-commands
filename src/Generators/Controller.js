@@ -52,7 +52,7 @@ class ControllerGenerator extends BaseGenerator {
       name: templateName
     }
     yield this.write('controller', toPath, templateOptions)
-    this.completed('create', templateName)
+    this._logCreate(this.helpers.basePath(), toPath)
   }
 
 }

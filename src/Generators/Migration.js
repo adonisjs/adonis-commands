@@ -55,7 +55,7 @@ class MigrationGenerator extends BaseGenerator {
     }
     try {
       yield this.write('migration', toPath, templateOptions)
-      this._logCreate(this.helpers.appPath(), toPath)
+      this._logCreate(this.helpers.basePath(), toPath)
     } catch (e) {
       this.error(e.message)
     }
