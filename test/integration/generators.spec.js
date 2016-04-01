@@ -104,4 +104,12 @@ describe('Generators', function () {
       expect(accountHook.validate).to.be.a('function')
     })
   })
+
+  context('Middleware', function () {
+    it('should create a middleware', function * () {
+      yield setup.invokeCommand('make:middleware', ['Cors'], {})
+      const CorsMiddleware = require('./app/Http/Middleware/Cors.js')
+      expect(CorsMiddleware.name).to.equal('Cors')
+    })
+  })
 })
