@@ -24,7 +24,7 @@ describe('Generators', function () {
   })
 
   after(function * () {
-    // yield setup.end()
+    yield setup.end()
   })
 
   context('Migration', function () {
