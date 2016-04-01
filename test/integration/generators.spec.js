@@ -80,4 +80,12 @@ describe('Generators', function () {
       expect(view).to.be.a('string')
     })
   })
+
+  context('Command', function () {
+    it('should create a command', function * () {
+      yield setup.invokeCommand('make:command', ['greet'], {})
+      const GreetCommand = require('./app/Commands/Greet.js')
+      expect(GreetCommand.name).to.equal('Greet')
+    })
+  })
 })

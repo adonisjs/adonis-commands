@@ -1,13 +1,15 @@
 'use strict'
 
+const Command = use('Command')
+
 class {{name}} extends Command {
 
   static get signature () {
-    return {{signature}}
+    return ''
   }
 
   static get description () {
-    return {{description}}
+    return 'Tell something helpful about this command'
   }
 
   * handle (args, options) {
@@ -16,4 +18,4 @@ class {{name}} extends Command {
 
 }
 
-module.exports = Command
+module.exports = {{name}}

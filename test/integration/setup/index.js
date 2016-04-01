@@ -48,11 +48,12 @@ setup.registerProviders = () => {
   fold.Ioc.bind('Lucid', function () {
     return Lucid
   })
+  fold.Ioc.alias('Command', 'Adonis/Src/Command')
   return fold.Registrar.register(['adonis-ace/providers/CommandProvider', path.join(__dirname, '../../../providers/GeneratorsProvider')])
 }
 
 setup.registerCommands = () => {
-  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model', 'Adonis/Commands/Make:View'])
+  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model', 'Adonis/Commands/Make:View', 'Adonis/Commands/Make:Command'])
 }
 
 setup.invokeCommand = (command, args, options) => {
