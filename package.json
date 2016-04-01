@@ -1,53 +1,43 @@
 {
   "name": "adonis-commands",
-  "version": "2.0.5",
-  "description": "Set of core commands, shipped with adonis",
+  "version": "2.0.0",
+  "description": "Project scaffolding for Adonis framework",
   "main": "index.js",
-  "scripts": {
-    "test": "npm run standard && istanbul cover _mocha --report lcovonly -- -R spec test && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
-    "coverage": "istanbul cover _mocha test --bail",
-    "standard": "standard test/*.js providers/*.js src/**/*.js"
-  },
-  "author": "adonisjs",
-  "license": "MIT",
-  "devDependencies": {
-    "adonis-fold": "^3.0.0",
-    "chai": "^3.2.0",
-    "co-mocha": "^1.1.2",
-    "coveralls": "^2.11.6",
-    "cz-conventional-changelog": "^1.1.5",
-    "istanbul": "^0.4.1",
-    "mocha": "^2.3.2",
-    "mocha-lcov-reporter": "^1.0.0",
-    "standard": "^5.4.1"
-  },
-  "peerDependencies": {
-    "adonis-fold": "^3.0.0"
-  },
-  "dependencies": {
-    "change-case": "^2.3.0",
-    "co-fs-extra": "^1.1.0",
-    "inflect": "^0.3.0",
-    "pope": "^1.0.0"
-  },
   "directories": {
     "test": "test"
+  },
+  "scripts": {
+    "test": "npm run standard && npm run test:unit && npm run test:integration",
+    "test:unit": "_mocha test/unit",
+    "test:integration": "_mocha test/integration",
+    "standard": "standard src/**/*.js test/**/*js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adonisjs/adonis-commands.git"
   },
-  "keywords": [
-    "generators",
-    "adonis"
-  ],
+  "author": "adonisjs",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/adonisjs/adonis-commands/issues"
   },
   "homepage": "https://github.com/adonisjs/adonis-commands#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+  "peerDependencies": {
+    "adonis-fold": "^3.0.0"
+  },
+  "devDependencies": {
+    "adonis-ace": "git+https://github.com/adonisjs/ace.git#develop",
+    "adonis-fold": "^3.0.0",
+    "chai": "^3.5.0",
+    "co-mocha": "^1.1.2",
+    "commander": "^2.9.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "standard": "^6.0.8"
+  },
+  "dependencies": {
+    "co-fs-extra": "^1.2.1",
+    "hogan.js": "^3.0.2",
+    "inflect": "^0.3.0"
   }
 }

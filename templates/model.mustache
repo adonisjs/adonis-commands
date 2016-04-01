@@ -1,0 +1,21 @@
+'use strict'
+
+const Lucid = use('Lucid')
+
+class {{name}} extends Lucid {
+
+  {{#connection}}
+  static get connection () {
+    return '{{connection}}'
+  }
+
+  {{/connection}}
+  {{#table}}
+  static get table () {
+    return '{{table}}'
+  }
+
+  {{/table}}
+}
+
+module.exports = {{name}}

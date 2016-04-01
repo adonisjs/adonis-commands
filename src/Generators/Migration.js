@@ -2,55 +2,65 @@
 
 /**
  * adonis-commands
- * Copyright(c) 2015-2015 Harminder Virk
- * MIT Licensed
+ *
+ * (c) Harminder Virk <virk@adonisjs.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
 */
-
-const utils = require('./helpers')
-const Ioc = require('adonis-fold').Ioc
+const BaseGenerator = require('./Base')
 const i = require('inflect')
-const schemaString = require('./strings').schema
 
-let Middleware = exports = module.exports = {}
-
-Middleware.description = 'Generate new migration schema file'
-Middleware.signature = '{name:Name of the migration file} {--create?} {--table?}'
-
-/**
- * @description handle method that will be invoked by ace when
- * this command is executed
- * @method
- * @param  {Object} options
- * @param  {Object} flags
- * @return {void}
- * @public
- */
-Middleware.handle = function * (options, flags) {
-  const Helpers = Ioc.use('Adonis/Src/Helpers')
-  const Ansi = Ioc.use('Adonis/Src/Ansi')
-  const name = `${utils.makeName(options.name, 'Schema')}`
-  const migrationsPath = Helpers.migrationsPath(`${name}.js`)
-  const tableName = i.pluralize(name.replace('Schema', '').toLowerCase())
-  let templateOptions = {up: '', down: ''}
-  if (flags.create) {
-    templateOptions.up = `this.create('${tableName}', function (table) {
-      table.increments()
-      table.timestamps()
-      table.softDeletes()
-    })`
-    templateOptions.down = `this.drop('${tableName}')`
+class MigrationGenerator extends BaseGenerator {
+  /**
+   * returns signature to be used by ace
+   * @return {String}
+   *
+   * @public
+   */
+  get signature () {
+    const createFlag = '{-c,--create=@value:Create a new table}'
+    const tableFlag = '{-t,--table=@value:Select table for alteration}'
+    const connectionFlag = '{-c,--connection=@value:Specify connection to be used for migration}'
+    return `make:migration {name} ${createFlag} ${tableFlag} ${connectionFlag}`
   }
 
-  if (flags.table) {
-    templateOptions.up = `this.table('${tableName}', function (table) {
-    })`
-    templateOptions.down = templateOptions.up
+  /**
+   * returns description to be used by ace as help command
+   * @return {String}
+   *
+   * @public
+   */
+  get description () {
+    return 'Create a new migration file'
   }
 
-  try {
-    const response = yield utils.generateBlueprint(schemaString, migrationsPath, name, 'migration', templateOptions)
-    Ansi.success(response)
-  } catch (e) {
-    Ansi.error(e.message)
+  /**
+   * called by ace automatically. It will create a new
+   * migrations file inside the migrations directory.
+   * @param  {Object} args
+   * @param  {Object} options
+   *
+   * @public
+   */
+  * handle (args, options) {
+    const name = args.name
+    const templateName = this._makeEntityName(name, 'migration', false)
+    const toPath = this.helpers.migrationsPath(`${templateName}.js`)
+    const appRoot = this.helpers.appPath()
+    const templateOptions = {
+      table: options.create || options.table || i.underscore(templateName),
+      create: !!options.create,
+      name: templateName,
+      connection: options.connection
+    }
+    try {
+      yield this.write('migration', toPath, templateOptions)
+      this._logCreate(appRoot, toPath)
+    } catch (e) {
+      this.error(e.message)
+    }
   }
 }
+
+module.exports = MigrationGenerator

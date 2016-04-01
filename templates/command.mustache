@@ -1,0 +1,19 @@
+'use strict'
+
+class {{name}} extends Command {
+
+  static get signature () {
+    return {{signature}}
+  }
+
+  static get description () {
+    return {{description}}
+  }
+
+  * handle (args, options) {
+    this.info('Dummy implementation for {{name}} command')
+  }
+
+}
+
+module.exports = Command
