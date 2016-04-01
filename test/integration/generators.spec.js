@@ -92,14 +92,14 @@ describe('Generators', function () {
   context('Hook', function () {
     it('should create a hook', function * () {
       yield setup.invokeCommand('make:hook', ['user'], {})
-      const userHook = require('./app/Model/Hooks/user.js')
+      const userHook = require('./app/Model/Hooks/User.js')
       expect(userHook).to.be.an('object')
       expect(userHook.methodName).to.be.a('function')
     })
 
     it('should create a hook with a given method', function * () {
       yield setup.invokeCommand('make:hook', ['account'], {method: 'validate'})
-      const accountHook = require('./app/Model/Hooks/account.js')
+      const accountHook = require('./app/Model/Hooks/Account.js')
       expect(accountHook).to.be.an('object')
       expect(accountHook.validate).to.be.a('function')
     })
