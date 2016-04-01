@@ -19,6 +19,12 @@ const Helpers = {
   },
   appPath: function () {
     return path.join(__dirname, '../app')
+  },
+  viewsPath: function () {
+    return path.join(__dirname, '../app/views')
+  },
+  basePath: function () {
+    return this.appPath()
   }
 }
 class Schema {}
@@ -46,7 +52,7 @@ setup.registerProviders = () => {
 }
 
 setup.registerCommands = () => {
-  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model'])
+  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model', 'Adonis/Commands/Make:View'])
 }
 
 setup.invokeCommand = (command, args, options) => {

@@ -11,6 +11,8 @@
 /* global describe, it, before, after, context */
 const chai = require('chai')
 const setup = require('./setup')
+const fs = require('co-fs-extra')
+const path = require('path')
 const expect = chai.expect
 require('co-mocha')
 
@@ -56,6 +58,26 @@ describe('Generators', function () {
       yield setup.invokeCommand('make:model', ['User'], {})
       const UserModel = require('./app/Model/User.js')
       expect(UserModel.name).to.equal('User')
+    })
+  })
+
+  context('View', function () {
+    it('should create a template view', function * () {
+      yield setup.invokeCommand('make:view', ['home'], {})
+      const view = yield fs.readFile(path.join(__dirname, './app/views/home.html'), 'utf-8')
+      expect(view).to.be.a('string')
+    })
+
+    it('should be able to extend a master view', function * () {
+      yield setup.invokeCommand('make:view', ['user'], {extend: 'master'})
+      const view = yield fs.readFile(path.join(__dirname, './app/views/user.html'), 'utf-8')
+      expect(view.trim()).to.equal('{% extends \'master\' %}')
+    })
+
+    it('should be able to create nested views', function * () {
+      yield setup.invokeCommand('make:view', ['post/list'], {})
+      const view = yield fs.readFile(path.join(__dirname, './app/views/post/list.html'), 'utf-8')
+      expect(view).to.be.a('string')
     })
   })
 })
