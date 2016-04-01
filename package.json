@@ -31,6 +31,7 @@
     "chai": "^3.5.0",
     "co-mocha": "^1.1.2",
     "commander": "^2.9.0",
+    "cz-conventional-changelog": "^1.1.5",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
     "standard": "^6.0.8"
@@ -39,5 +40,10 @@
     "co-fs-extra": "^1.2.1",
     "hogan.js": "^3.0.2",
     "inflect": "^0.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
