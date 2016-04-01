@@ -47,7 +47,6 @@ class MigrationGenerator extends BaseGenerator {
     const name = args.name
     const templateName = this._makeEntityName(name, 'migration', false)
     const toPath = this.helpers.migrationsPath(`${templateName}.js`)
-    const appRoot = this.helpers.appPath()
     const templateOptions = {
       table: options.create || options.table || i.underscore(templateName),
       create: !!options.create,
@@ -56,7 +55,7 @@ class MigrationGenerator extends BaseGenerator {
     }
     try {
       yield this.write('migration', toPath, templateOptions)
-      this._logCreate(appRoot, toPath)
+      this._logCreate(this.helpers.appPath(), toPath)
     } catch (e) {
       this.error(e.message)
     }
