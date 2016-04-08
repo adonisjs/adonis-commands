@@ -59,7 +59,7 @@ setup.registerProviders = () => {
 }
 
 setup.registerCommands = () => {
-  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model', 'Adonis/Commands/Make:View', 'Adonis/Commands/Make:Command', 'Adonis/Commands/Make:Hook', 'Adonis/Commands/Make:Middleware', 'Adonis/Commands/Make:Seed'])
+  Ace.register(['Adonis/Commands/Make:Controller', 'Adonis/Commands/Make:Migration', 'Adonis/Commands/Make:Model', 'Adonis/Commands/Make:View', 'Adonis/Commands/Make:Command', 'Adonis/Commands/Make:Hook', 'Adonis/Commands/Make:Middleware', 'Adonis/Commands/Make:Seed', 'Adonis/Commands/Make:Listener'])
 }
 
 setup.invokeCommand = (command, args, options) => {

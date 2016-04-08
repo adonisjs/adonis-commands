@@ -105,6 +105,22 @@ describe('Generators', function () {
     })
   })
 
+  context('Listener', function () {
+    it('should create a listener', function * () {
+      yield setup.invokeCommand('make:listener', ['http'], {})
+      const httpListener = require('./app/Listeners/Http.js')
+      expect(httpListener).to.be.an('object')
+      expect(httpListener.methodName).to.be.a('function')
+    })
+
+    it('should create a listener with a given method', function * () {
+      yield setup.invokeCommand('make:listener', ['auth'], {method: 'login'})
+      const authListener = require('./app/Listeners/Auth.js')
+      expect(authListener).to.be.an('object')
+      expect(authListener.login).to.be.a('function')
+    })
+  })
+
   context('Middleware', function () {
     it('should create a middleware', function * () {
       yield setup.invokeCommand('make:middleware', ['Cors'], {})

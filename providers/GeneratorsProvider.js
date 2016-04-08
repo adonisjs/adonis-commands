@@ -15,7 +15,7 @@ class GeneratorsProvider extends ServiceProvider {
 
   constructor () {
     super()
-    this.generators = ['Controller', 'Migration', 'Model', 'View', 'Command', 'Hook', 'Middleware', 'Seed']
+    this.generators = ['Controller', 'Migration', 'Model', 'View', 'Command', 'Hook', 'Middleware', 'Seed', 'Listener']
   }
 
   * register() {
