@@ -23,8 +23,8 @@ class ModelGenerator extends BaseGenerator {
    */
   get signature () {
     const migrationsFlag = '{-m,--migration?:Create migration for a given model}'
-    const tableFlag = '{-t,--table?=@value:Specify an optional table name for the model}'
-    const connectionFlag = '{-c, --connection?=@value:Specify an optional connection for the model}'
+    const tableFlag = '{-t,--table=@value:Specify an optional table name for the model}'
+    const connectionFlag = '{-c, --connection=@value:Specify an optional connection for the model}'
     return `make:model {name} ${migrationsFlag} ${tableFlag} ${connectionFlag}`
   }
 
@@ -55,14 +55,32 @@ class ModelGenerator extends BaseGenerator {
       table: options.table,
       connection: options.connection
     }
-    yield this.write('model', toPath, templateOptions)
-    this._logCreate(this.helpers.basePath(), toPath)
-    if (options.migration) {
-      const migrationOptions = {
+
+    try {
+      yield this.write('model', toPath, templateOptions)
+      this._success(toPath)
+      this._createMigration(options, name)
+    } catch (e) {
+      this._error(e.message)
+    }
+  }
+
+  /**
+   * creates migration for corresponding model, if
+   * options.migration is defined.
+   *
+   * @param  {Object} options
+   * @param  {String} name
+   *
+   * @private
+   */
+  _createMigration (options, name) {
+    if (options.migrations) {
+      const templateOptions = {
         connection: options.connection,
         create: options.table || i.pluralize(i.underscore(name))
       }
-      this.run('make:migration', [name], migrationOptions)
+      this.run('make:migration', [name], templateOptions)
     }
   }
 

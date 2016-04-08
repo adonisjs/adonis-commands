@@ -53,12 +53,7 @@ class MigrationGenerator extends BaseGenerator {
       name: templateName,
       connection: options.connection
     }
-    try {
-      yield this.write('migration', toPath, templateOptions)
-      this._logCreate(this.helpers.basePath(), toPath)
-    } catch (e) {
-      this.error(e.message)
-    }
+    yield this._wrapWrite('migration', toPath, templateOptions)
   }
 }
 

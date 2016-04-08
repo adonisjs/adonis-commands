@@ -34,7 +34,9 @@ const Helpers = {
   migrationsPath: (file) => {
     return path.join(__dirname, './app/migrations/', file)
   },
-  basePath: () => this.appPath
+  basePath: function () {
+    return this.appPath()
+  }
 }
 
 describe('Generator', function () {

@@ -47,8 +47,7 @@ class CommandGenerator extends BaseGenerator {
     const templateName = this._makeEntityName(name, 'command', false)
     const toPath = path.join(this.helpers.appPath(), 'Commands', `${templateName}.js`)
     const templateOptions = {name: templateName}
-    yield this.write('command', toPath, templateOptions)
-    this._logCreate(this.helpers.basePath(), toPath)
+    yield this._wrapWrite('command', toPath, templateOptions)
   }
 
 }

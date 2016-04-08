@@ -51,8 +51,7 @@ class ViewGenerator extends BaseGenerator {
     const templateOptions = {
       extend: options.extend
     }
-    yield this.write('view', toPath, templateOptions)
-    this._logCreate(this.helpers.basePath(), toPath)
+    yield this._wrapWrite('view', toPath, templateOptions)
   }
 
 }

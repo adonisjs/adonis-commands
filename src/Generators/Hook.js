@@ -21,7 +21,7 @@ class HookGenerator extends BaseGenerator {
    * @public
    */
   get signature () {
-    return 'make:hook {name} {--method?=@value:Method to create on hook}'
+    return 'make:hook {name} {-m,--method=@value:Method to create on hook}'
   }
 
   /**
@@ -50,8 +50,7 @@ class HookGenerator extends BaseGenerator {
       name: templateName,
       method: options.method || 'methodName'
     }
-    yield this.write('hook', toPath, templateOptions)
-    this._logCreate(this.helpers.basePath(), toPath)
+    yield this._wrapWrite('hook', toPath, templateOptions)
   }
 
 }

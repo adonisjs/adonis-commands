@@ -50,8 +50,7 @@ class MiddlewareGenerator extends BaseGenerator {
     const templateOptions = {
       name: templateName
     }
-    yield this.write('middleware', toPath, templateOptions)
-    this._logCreate(this.helpers.basePath(), toPath)
+    yield this._wrapWrite('middleware', toPath, templateOptions)
   }
 
 }

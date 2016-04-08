@@ -45,11 +45,8 @@ class SeedGenerator extends BaseGenerator {
     const name = args.name
     const templateName = this._makeEntityName(name, 'seed', false)
     const toPath = this.helpers.seedsPath(`${templateName}.js`)
-    const templateOptions = {
-      name: templateName
-    }
-    yield this.write('seed', toPath, templateOptions)
-    this._logCreate(this.helpers.basePath(), toPath)
+    const templateOptions = { name: templateName }
+    yield this._wrapWrite('seed', toPath, templateOptions)
   }
 
 }

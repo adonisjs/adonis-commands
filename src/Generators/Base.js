@@ -100,23 +100,55 @@ class Base extends Command {
     const temp = hogan.compile(contents)
     const hasFile = yield this._hasFile(dest)
     if (hasFile) {
-      throw new Error(`I am afraid ${path.basename(dest)} already exists`)
+      throw new Error(`I am afraid ${this._incrementalPath(dest)} already exists`)
     }
     return yield this._writeContents(dest, temp.render(options))
   }
 
   /**
-   * logs the completed message on the console by
-   * making incrementalPath path
-   * @param  {String} basePath [description]
-   * @param  {String} toPath   [description]
+   * returns incremental path for a given absolute path
+   *
+   * @param  {String} toPath
+   * @return {String}
    *
    * @private
    */
-  _logCreate (basePath, toPath) {
-    const regeExp = new RegExp(`${basePath}${path.sep}?`)
-    const incrementalPath = toPath.replace(regeExp, '')
+  _incrementalPath (toPath) {
+    const regeExp = new RegExp(`${this.helpers.basePath()}${path.sep}?`)
+    return toPath.replace(regeExp, '')
+  }
+
+  /**
+   * logs the completed message on the console by
+   * making incrementalPath path
+   *
+   * @param  {String} toPath
+   *
+   * @private
+   */
+  _success (toPath) {
+    const incrementalPath = this._incrementalPath(toPath)
     this.completed('create', incrementalPath)
+  }
+
+  /**
+   * logs error to the console
+   *
+   * @param  {String} error [description]
+   *
+   * @private
+   */
+  _error (error) {
+    this.error(error)
+  }
+
+  * _wrapWrite (entity, dest, options) {
+    try {
+      yield this.write(entity, dest, options)
+      this._success(dest)
+    } catch (e) {
+      this._error(e.message)
+    }
   }
 
 }

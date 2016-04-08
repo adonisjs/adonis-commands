@@ -21,7 +21,7 @@ class ControllerGenerator extends BaseGenerator {
    * @public
    */
   get signature () {
-    return 'make:controller {name} {--plain?:Create an empty controller}'
+    return 'make:controller {name} {-p,--plain?:Create an empty controller}'
   }
 
   /**
@@ -51,8 +51,7 @@ class ControllerGenerator extends BaseGenerator {
       plain: options.plain || false,
       name: templateName
     }
-    yield this.write('controller', toPath, templateOptions)
-    this._logCreate(this.helpers.basePath(), toPath)
+    yield this._wrapWrite('controller', toPath, templateOptions)
   }
 
 }
