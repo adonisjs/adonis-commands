@@ -13,6 +13,7 @@ const chai = require('chai')
 const setup = require('./setup')
 const fs = require('co-fs-extra')
 const path = require('path')
+const dotEnv = require('dotenv')
 const expect = chai.expect
 require('co-mocha')
 
@@ -134,6 +135,33 @@ describe('Generators', function () {
       yield setup.invokeCommand('make:seed', ['User'], {})
       const UserSeeder = require('./app/seeds/User.js')
       expect(UserSeeder.name).to.equal('UserSeeder')
+    })
+  })
+
+  context('Key', function () {
+    it('should generate app key inside .env file', function * () {
+      const envContents = ['NODE_ENV = production', 'DB_CONNECTION=sqlite3'].join('\n')
+      const envPath = path.join(__dirname, './app/.env')
+      yield fs.outputFile(envPath, envContents)
+      yield setup.invokeCommand('key:generate', [], {})
+      const writtenContents = yield fs.readFile(envPath, 'utf-8')
+      expect(dotEnv.parse(writtenContents).APP_KEY.length).to.equal(32)
+    })
+
+    it('should generate app key inside .env file with a defined size', function * () {
+      const envPath = path.join(__dirname, './app/.env')
+      yield setup.invokeCommand('key:generate', [], {size: 16})
+      const writtenContents = yield fs.readFile(envPath, 'utf-8')
+      expect(dotEnv.parse(writtenContents).APP_KEY.length).to.equal(16)
+    })
+
+    it('should be able to define .env path', function * () {
+      const envPath = path.join(__dirname, './app/tmp/.env')
+      const envContents = ['NODE_ENV = production', 'DB_CONNECTION=sqlite3'].join('\n')
+      yield fs.outputFile(envPath, envContents)
+      yield setup.invokeCommand('key:generate', [], {env: 'tmp/.env'})
+      const writtenContents = yield fs.readFile(envPath, 'utf-8')
+      expect(dotEnv.parse(writtenContents).APP_KEY.length).to.equal(32)
     })
   })
 })

@@ -26,6 +26,11 @@ class GeneratorsProvider extends ServiceProvider {
         return new Generator(Helpers)
       })
     })
+    this.app.bind('Adonis/Commands/Key:Generate', (app) => {
+      const KeyGenerator = require('../src/Generators/Key')
+      const Helpers = app.use('Adonis/Src/Helpers')
+      return new KeyGenerator(Helpers)
+    })
   }
 
 }
