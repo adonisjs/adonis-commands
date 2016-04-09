@@ -75,7 +75,7 @@ class ModelGenerator extends BaseGenerator {
    * @private
    */
   _createMigration (options, name) {
-    if (options.migrations) {
+    if (options.migration) {
       const templateOptions = {
         connection: options.connection,
         create: options.table || i.pluralize(i.underscore(name))
