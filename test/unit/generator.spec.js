@@ -32,6 +32,7 @@ const MigrationGenerator = require('../../src/Generators/Migration')
 const Helpers = {
   appPath: () => path.join(__dirname, './app'),
   migrationsPath: (file) => {
+    file = file.replace(/\d+_/g, '')
     return path.join(__dirname, './app/migrations/', file)
   },
   basePath: function () {

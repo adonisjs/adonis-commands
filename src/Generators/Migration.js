@@ -46,7 +46,7 @@ class MigrationGenerator extends BaseGenerator {
   * handle (args, options) {
     const name = args.name
     const templateName = this._makeEntityName(name, 'migration', false)
-    const toPath = this.helpers.migrationsPath(`${templateName}.js`)
+    const toPath = this.helpers.migrationsPath(`${new Date().getTime()}_${name}.js`)
     const templateOptions = {
       table: options.create || options.table || i.underscore(templateName),
       create: !!options.create,

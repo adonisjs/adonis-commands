@@ -15,6 +15,7 @@ const path = require('path')
 const fs = require('co-fs-extra')
 const Helpers = {
   migrationsPath: function (file) {
+    file = file.replace(/\d+_/g, '')
     return path.join(__dirname, '../app/migrations/', file)
   },
   appPath: function () {
