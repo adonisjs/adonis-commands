@@ -41,7 +41,8 @@
     "dotenv": "^2.0.0",
     "hogan.js": "^3.0.2",
     "inflect": "^0.3.0",
-    "randomstring": "^1.1.4"
+    "randomstring": "^1.1.4",
+    "repl-plus": "^0.2.0"
   },
   "config": {
     "commitizen": {
