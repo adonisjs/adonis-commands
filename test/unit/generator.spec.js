@@ -103,14 +103,14 @@ describe('Generator', function () {
   context('Controller', function () {
     it('should create a controller file', function * () {
       const controllerGen = new ControllerGenerator(Helpers)
-      yield controllerGen.handle({name: 'UserPlain'}, {plain: true})
+      yield controllerGen.handle({name: 'UserPlain'}, {})
       const Controller = require(path.join(Helpers.appPath(), 'Http/Controllers/UserPlainController.js'))
       expect(Controller.name).to.equal('UserPlainController')
     })
 
     it('should create a controller file with predefined methods', function * () {
       const controllerGen = new ControllerGenerator(Helpers)
-      yield controllerGen.handle({name: 'User'}, {})
+      yield controllerGen.handle({name: 'User'}, {resource: true})
       const Controller = require(path.join(Helpers.appPath(), 'Http/Controllers/UserController.js'))
       const controllerInstance = new Controller()
       const methods = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']

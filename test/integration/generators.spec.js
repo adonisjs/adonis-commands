@@ -40,7 +40,7 @@ describe('Generators', function () {
 
   context('Controller', function () {
     it('should create a new controller', function * () {
-      yield setup.invokeCommand('make:controller', ['User'], {})
+      yield setup.invokeCommand('make:controller', ['User'], {resource: true})
       const UserController = require('./app/Http/Controllers/UserController.js')
       const user = new UserController()
       expect(UserController.name).to.equal('UserController')

@@ -21,7 +21,7 @@ class ControllerGenerator extends BaseGenerator {
    * @public
    */
   get signature () {
-    return 'make:controller {name} {-p,--plain?:Create an empty controller}'
+    return 'make:controller {name} {-r,--resource?:Create a resourceful Controller}'
   }
 
   /**
@@ -48,7 +48,7 @@ class ControllerGenerator extends BaseGenerator {
     const toPath = path.join(this.helpers.appPath(), 'Http/Controllers', `${templateName}.js`)
     const templateOptions = {
       methods: ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
-      plain: options.plain || false,
+      resource: options.resource || false,
       name: templateName
     }
     yield this._wrapWrite('controller', toPath, templateOptions)

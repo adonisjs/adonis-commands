@@ -2,14 +2,14 @@
 
 class {{name}} {
 
-{{^plain}}
+{{#resource}}
 {{#methods}}
   * {{.}}(request, response) {
     //
   }
 
 {{/methods}}
-{{/plain}}
+{{/resource}}
 }
 
 module.exports = {{name}}
