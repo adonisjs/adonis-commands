@@ -114,7 +114,7 @@ describe('Generator', function () {
       const Controller = require(path.join(Helpers.appPath(), 'Http/Controllers/UserController.js'))
       const controllerInstance = new Controller()
       const methods = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']
-      methods.forEach((method) => expect(controllerInstance[method]).to.be.a('function'))
+      methods.forEach((method) => expect(typeof (controllerInstance[method])).to.equal('function'))
     })
   })
 
