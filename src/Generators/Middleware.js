@@ -21,7 +21,8 @@ class MiddlewareGenerator extends BaseGenerator {
    * @public
    */
   get signature () {
-    return 'make:middleware {name}'
+    const templateFlag = '{--template=@value:Path to custom template for middleware file}'
+    return `make:middleware {name} ${templateFlag}`
   }
 
   /**
@@ -47,10 +48,11 @@ class MiddlewareGenerator extends BaseGenerator {
     const name = args.name
     const templateName = this._makeEntityName(name, 'middleware', false)
     const toPath = path.join(this.helpers.appPath(), 'Http/Middleware', `${templateName}.js`)
+    const template = options.template || 'middleware'
     const templateOptions = {
       name: templateName
     }
-    yield this._wrapWrite('middleware', toPath, templateOptions)
+    yield this._wrapWrite(template, toPath, templateOptions)
   }
 
 }

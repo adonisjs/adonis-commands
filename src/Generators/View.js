@@ -23,7 +23,8 @@ class ViewGenerator extends BaseGenerator {
    */
   get signature () {
     const extendFlag = '{-e, --extend?=@value:Extend a parent view}'
-    return `make:view {name} ${extendFlag}`
+    const templateFlag = '{--template=@value:Path to custom template for view template}'
+    return `make:view {name} ${extendFlag} ${templateFlag}`
   }
 
   /**
@@ -48,10 +49,11 @@ class ViewGenerator extends BaseGenerator {
     const name = args.name
     const templateName = i.decapitalize(this._makeEntityName(name, 'view', false))
     const toPath = path.join(this.helpers.viewsPath(), `${templateName}.nunjucks`)
+    const template = options.template || 'view'
     const templateOptions = {
       extend: options.extend
     }
-    yield this._wrapWrite('view', toPath, templateOptions)
+    yield this._wrapWrite(template, toPath, templateOptions)
   }
 
 }

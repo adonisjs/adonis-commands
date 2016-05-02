@@ -25,7 +25,8 @@ class ModelGenerator extends BaseGenerator {
     const migrationsFlag = '{-m,--migration?:Create migration for a given model}'
     const tableFlag = '{-t,--table=@value:Specify an optional table name for the model}'
     const connectionFlag = '{-c, --connection=@value:Specify an optional connection for the model}'
-    return `make:model {name} ${migrationsFlag} ${tableFlag} ${connectionFlag}`
+    const templateFlag = '{--template=@value:Path to custom template for model file}'
+    return `make:model {name} ${migrationsFlag} ${tableFlag} ${connectionFlag} ${templateFlag}`
   }
 
   /**
@@ -50,6 +51,7 @@ class ModelGenerator extends BaseGenerator {
     const name = args.name
     const templateName = this._makeEntityName(name, 'model', false, 'singular')
     const toPath = path.join(this.helpers.appPath(), 'Model', `${templateName}.js`)
+    const template = options.template || 'model'
     const templateOptions = {
       name: templateName,
       table: options.table,
@@ -57,7 +59,7 @@ class ModelGenerator extends BaseGenerator {
     }
 
     try {
-      yield this.write('model', toPath, templateOptions)
+      yield this.write(template, toPath, templateOptions)
       this._success(toPath)
       this._createMigration(options, name)
     } catch (e) {
