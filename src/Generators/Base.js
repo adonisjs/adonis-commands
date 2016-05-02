@@ -88,6 +88,7 @@ class Base extends Command {
 
   /**
    * writes template contents to a given destination.
+   *
    * @param  {String} template
    * @param  {String} dest
    * @param  {Object} options
@@ -96,7 +97,8 @@ class Base extends Command {
    * @public
    */
   * write (template, dest, options) {
-    const contents = yield this._getContents(this._makeTemplatePath(template))
+    template = template.endsWith('.mustache') ? template : this._makeTemplatePath(template)
+    const contents = yield this._getContents(template)
     const temp = hogan.compile(contents)
     const hasFile = yield this._hasFile(dest)
     if (hasFile) {
@@ -134,7 +136,7 @@ class Base extends Command {
   /**
    * logs error to the console
    *
-   * @param  {String} error [description]
+   * @param  {String} error
    *
    * @private
    */
@@ -142,6 +144,16 @@ class Base extends Command {
     this.error(error)
   }
 
+  /**
+   * writes file to a given destination and automatically logs
+   * errors and success messages to the terminal.
+   *
+   * @param  {String} entity
+   * @param  {String} dest
+   * @param  {Object} options
+   *
+   * @private
+   */
   * _wrapWrite (entity, dest, options) {
     try {
       yield this.write(entity, dest, options)

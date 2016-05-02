@@ -209,5 +209,18 @@ describe('Generator', function () {
       expect(Migration.name).to.equal('ProfileSchema')
       expect(Migration.connection).to.equal('Mysql')
     })
+
+    it('should create a migrations file with given template', function * () {
+      const migrationGen = new MigrationGenerator(Helpers)
+      const mustacheContents = `'use strict'
+      class Foo {
+      }
+      module.exports = Foo
+      `
+      yield fs.outputFile(path.join(__dirname, './app/templates/custom.mustache'), mustacheContents)
+      yield migrationGen.handle({name: 'Foo'}, {template: path.join(__dirname, './app/templates/custom.mustache')})
+      const Migration = require(Helpers.migrationsPath('Foo'))
+      expect(Migration.name).to.equal('Foo')
+    })
   })
 })

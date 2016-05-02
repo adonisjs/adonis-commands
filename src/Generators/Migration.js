@@ -22,7 +22,8 @@ class MigrationGenerator extends BaseGenerator {
     const createFlag = '{-c,--create=@value:Create a new table}'
     const tableFlag = '{-t,--table=@value:Select table for alteration}'
     const connectionFlag = '{-c,--connection=@value:Specify connection to be used for migration}'
-    return `make:migration {name} ${createFlag} ${tableFlag} ${connectionFlag}`
+    const templateFlag = '{--template=@value:Path to custom template for migration file}'
+    return `make:migration {name} ${createFlag} ${tableFlag} ${connectionFlag} ${templateFlag}`
   }
 
   /**
@@ -47,13 +48,14 @@ class MigrationGenerator extends BaseGenerator {
     const name = args.name
     const templateName = this._makeEntityName(name, 'migration', false)
     const toPath = this.helpers.migrationsPath(`${new Date().getTime()}_${name}.js`)
+    const template = options.template || 'migration'
     const templateOptions = {
       table: options.create || options.table || i.underscore(templateName),
       create: !!options.create,
       name: templateName,
       connection: options.connection
     }
-    yield this._wrapWrite('migration', toPath, templateOptions)
+    yield this._wrapWrite(template, toPath, templateOptions)
   }
 }
 
