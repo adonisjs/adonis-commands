@@ -49,11 +49,11 @@ class ModelGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'model', false, 'singular')
-    const toPath = path.join(this.helpers.appPath(), 'Model', `${templateName}.js`)
+    const entity = this._makeEntityName(name, 'model', false, 'singular')
+    const toPath = path.join(this.helpers.appPath(), 'Model', `${entity.entityPath}.js`)
     const template = options.template || 'model'
     const templateOptions = {
-      name: templateName,
+      name: entity.entityName,
       table: options.table,
       connection: options.connection
     }

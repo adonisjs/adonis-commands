@@ -43,9 +43,9 @@ class SeedGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'seed', false)
-    const toPath = this.helpers.seedsPath(`${templateName}.js`)
-    const templateOptions = { name: templateName }
+    const entity = this._makeEntityName(name, 'seed', false)
+    const toPath = this.helpers.seedsPath(`${entity.entityName}.js`)
+    const templateOptions = { name: entity.entityPath }
     yield this._wrapWrite('seed', toPath, templateOptions)
   }
 

@@ -46,13 +46,13 @@ class MigrationGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'migration', false)
+    const entity = this._makeEntityName(name, 'migration', false)
     const toPath = this.helpers.migrationsPath(`${new Date().getTime()}_${name}.js`)
     const template = options.template || 'migration'
     const templateOptions = {
-      table: options.create || options.table || i.underscore(templateName),
+      table: options.create || options.table || i.underscore(entity.entityName),
       create: !!options.create,
-      name: templateName,
+      name: entity.entityName,
       connection: options.connection
     }
     yield this._wrapWrite(template, toPath, templateOptions)

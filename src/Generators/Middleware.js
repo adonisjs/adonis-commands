@@ -46,11 +46,11 @@ class MiddlewareGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'middleware', false)
-    const toPath = path.join(this.helpers.appPath(), 'Http/Middleware', `${templateName}.js`)
+    const entity = this._makeEntityName(name, 'middleware', false)
+    const toPath = path.join(this.helpers.appPath(), 'Http/Middleware', `${entity.entityPath}.js`)
     const template = options.template || 'middleware'
     const templateOptions = {
-      name: templateName
+      name: entity.entityName
     }
     yield this._wrapWrite(template, toPath, templateOptions)
   }

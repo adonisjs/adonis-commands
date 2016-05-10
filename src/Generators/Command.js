@@ -44,9 +44,9 @@ class CommandGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'command', false)
-    const toPath = path.join(this.helpers.appPath(), 'Commands', `${templateName}.js`)
-    const templateOptions = {name: templateName}
+    const entity = this._makeEntityName(name, 'command', false)
+    const toPath = path.join(this.helpers.appPath(), 'Commands', `${entity.entityName}.js`)
+    const templateOptions = {name: entity.entityPath}
     yield this._wrapWrite('command', toPath, templateOptions)
   }
 

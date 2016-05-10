@@ -44,10 +44,10 @@ class HookGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'hook', false)
-    const toPath = path.join(this.helpers.appPath(), 'Model/Hooks', `${templateName}.js`)
+    const entity = this._makeEntityName(name, 'hook', false)
+    const toPath = path.join(this.helpers.appPath(), 'Model/Hooks', `${entity.entityPath}.js`)
     const templateOptions = {
-      name: templateName,
+      name: entity.entityName,
       method: options.method || 'methodName'
     }
     yield this._wrapWrite('hook', toPath, templateOptions)

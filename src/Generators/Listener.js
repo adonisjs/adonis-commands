@@ -44,10 +44,10 @@ class ListenerGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'listener', false)
-    const toPath = path.join(this.helpers.appPath(), 'Listeners', `${templateName}.js`)
+    const entity = this._makeEntityName(name, 'listener', false)
+    const toPath = path.join(this.helpers.appPath(), 'Listeners', `${entity.entityPath}.js`)
     const templateOptions = {
-      name: templateName,
+      name: entity.entityName,
       method: options.method || 'methodName'
     }
     yield this._wrapWrite('listener', toPath, templateOptions)

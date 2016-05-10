@@ -128,6 +128,12 @@ describe('Generators', function () {
       const CorsMiddleware = require('./app/Http/Middleware/Cors.js')
       expect(CorsMiddleware.name).to.equal('Cors')
     })
+
+    it('should create a nested middleware', function * () {
+      yield setup.invokeCommand('make:middleware', ['Api/Auth'], {})
+      const AuthMiddleware = require('./app/Http/Middleware/Api/Auth.js')
+      expect(AuthMiddleware.name).to.equal('Auth')
+    })
   })
 
   context('Seed', function () {

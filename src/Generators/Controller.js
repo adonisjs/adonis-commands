@@ -44,12 +44,12 @@ class ControllerGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = this._makeEntityName(name, 'controller', true)
-    const toPath = path.join(this.helpers.appPath(), 'Http/Controllers', `${templateName}.js`)
+    const entity = this._makeEntityName(name, 'controller', true)
+    const toPath = path.join(this.helpers.appPath(), 'Http/Controllers', `${entity.entityPath}.js`)
     const templateOptions = {
       methods: ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
       resource: options.resource || false,
-      name: templateName
+      name: entity.entityName
     }
     yield this._wrapWrite('controller', toPath, templateOptions)
   }

@@ -45,11 +45,15 @@ class Base extends Command {
    * @private
    */
   _makeEntityName (name, entity, needPrefix, noun) {
+    name = name.split(path.sep)
+    let baseName = name.pop()
     const method = `${noun}ize`
     const regExp = new RegExp(`-?_?${entity}`, 'g')
-    name = i.underscore(name).replace(regExp, '')
-    name = i[method] ? i[method](name) : name
-    return needPrefix ? i.camelize(`${name}_${entity}`) : i.camelize(name)
+    baseName = i.underscore(baseName).replace(regExp, '')
+    baseName = i[method] ? i[method](baseName) : baseName
+    const entityName = needPrefix ? i.camelize(`${baseName}_${entity}`) : i.camelize(baseName)
+    name.push(entityName)
+    return {entityPath: name.join(path.sep), entityName}
   }
 
   /**

@@ -52,25 +52,37 @@ describe('Generator', function () {
   it('should make a template name for a given entity', function () {
     const gen = new Generator()
     const controllerName = gen._makeEntityName('userscontroller', 'controller', true)
-    expect(controllerName).to.equal('UsersController')
+    expect(controllerName.entityName).to.equal('UsersController')
+  })
+
+  it('should make a template name for directory seperated nested entity', function () {
+    const gen = new Generator()
+    const controllerName = gen._makeEntityName('Admin/userscontroller', 'controller', true)
+    expect(controllerName.entityName).to.equal('UsersController')
+  })
+
+  it('should make a template name for directory seperated multi level nested entity', function () {
+    const gen = new Generator()
+    const controllerName = gen._makeEntityName('Admin/api/v1/userscontroller', 'controller', true)
+    expect(controllerName.entityName).to.equal('UsersController')
   })
 
   it('should not prefix the entity when not required', function () {
     const gen = new Generator()
     const modelName = gen._makeEntityName('usersmodel', 'model', false)
-    expect(modelName).to.equal('Users')
+    expect(modelName.entityName).to.equal('Users')
   })
 
   it('should singularize a name when defined', function () {
     const gen = new Generator()
     const modelName = gen._makeEntityName('usersmodel', 'model', false, 'singular')
-    expect(modelName).to.equal('User')
+    expect(modelName.entityName).to.equal('User')
   })
 
   it('should pluralize a name when defined', function () {
     const gen = new Generator()
     const controllerName = gen._makeEntityName('user-controller', 'controller', true, 'plural')
-    expect(controllerName).to.equal('UsersController')
+    expect(controllerName.entityName).to.equal('UsersController')
   })
 
   it('should copy a template to the destination path', function * () {
@@ -116,6 +128,13 @@ describe('Generator', function () {
       const methods = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']
       methods.forEach((method) => expect(typeof (controllerInstance[method])).to.equal('function'))
     })
+
+    it('should create a nested controller file', function * () {
+      const controllerGen = new ControllerGenerator(Helpers)
+      yield controllerGen.handle({name: 'Admin/UserPlain'}, {})
+      const Controller = require(path.join(Helpers.appPath(), 'Http/Controllers/Admin/UserPlainController.js'))
+      expect(Controller.name).to.equal('UserPlainController')
+    })
   })
 
   context('Model', function () {
@@ -143,6 +162,13 @@ describe('Generator', function () {
       yield modelGen.handle({name: 'Profile'}, {connection: 'Mysql'})
       const Model = require(path.join(Helpers.appPath(), 'Model/Profile.js'))
       expect(Model.connection).to.equal('Mysql')
+    })
+
+    it('should create a nested model file', function * () {
+      const modelGen = new ModelGenerator(Helpers)
+      yield modelGen.handle({name: 'Admin/UsersModel'}, {})
+      const Model = require(path.join(Helpers.appPath(), 'Model/Admin/User.js'))
+      expect(Model.name).to.equal('User')
     })
   })
 
