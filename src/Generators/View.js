@@ -47,7 +47,8 @@ class ViewGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const templateName = i.decapitalize(this._makeEntityName(name, 'view', false).entityPath)
+    const entity = this._makeEntityName(name, 'view', false)
+    const templateName = entity.entityPath.replace(new RegExp(`${entity.entityName}$`), i.decapitalize(entity.entityName))
     const toPath = path.join(this.helpers.viewsPath(), `${templateName}.nunjucks`)
     const template = options.template || 'view'
     const templateOptions = {
