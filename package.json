@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/adonisjs/adonis-commands#readme",
   "peerDependencies": {
-    "adonis-fold": "^3.0.1"
+    "adonis-fold": "^3.0.2"
   },
   "devDependencies": {
     "adonis-ace": "git+https://github.com/adonisjs/ace.git#develop",
-    "adonis-fold": "^3.0.1",
+    "adonis-fold": "^3.0.2",
     "chai": "^3.5.0",
     "co-mocha": "^1.1.2",
     "commander": "^2.9.0",
