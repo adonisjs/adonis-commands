@@ -7,10 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npm run standard && npm run test:unit && npm run test:integration",
+    "test": "npm run lint && npm run test:unit && npm run test:integration",
     "test:unit": "_mocha test/unit",
     "test:integration": "_mocha test/integration",
-    "standard": "standard src/**/*.js test/**/*js"
+    "lint": "standard src/**/*.js test/**/*js"
   },
   "repository": {
     "type": "git",
