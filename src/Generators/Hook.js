@@ -12,7 +12,7 @@
 const BaseGenerator = require('./Base')
 const path = require('path')
 
-class MiddlewareGenerator extends BaseGenerator {
+class HookGenerator extends BaseGenerator {
 
   /**
    * returns signature to be used by ace
@@ -21,8 +21,7 @@ class MiddlewareGenerator extends BaseGenerator {
    * @public
    */
   get signature () {
-    const templateFlag = '{--template=@value:Path to custom template for middleware file}'
-    return `make:middleware {name} ${templateFlag}`
+    return 'make:hook {name} {-m,--method=@value:Method to create on hook}'
   }
 
   /**
@@ -32,13 +31,12 @@ class MiddlewareGenerator extends BaseGenerator {
    * @public
    */
   get description () {
-    return 'Create a new middleware for Http requests'
+    return 'Create a new hook for your models'
   }
 
   /**
-   * handle method will be executed by ace. Here we create
-   * the middleware inside middleware directory.
-   *
+   * handle method will be executed by ace. Here we
+   * create the hook inside hooks directory.
    * @param  {Object} args
    * @param  {Object} options
    *
@@ -46,15 +44,15 @@ class MiddlewareGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const entity = this._makeEntityName(name, 'middleware', false)
-    const toPath = path.join(this.helpers.appPath(), 'Http/Middleware', `${entity.entityPath}.js`)
-    const template = options.template || 'middleware'
+    const entity = this._makeEntityName(name, 'hook', false)
+    const toPath = path.join(this.helpers.appPath(), 'Model/Hooks', `${entity.entityPath}.js`)
     const templateOptions = {
-      name: entity.entityName
+      name: entity.entityName,
+      method: options.method || 'methodName'
     }
-    yield this._wrapWrite(template, toPath, templateOptions)
+    yield this._wrapWrite('hook', toPath, templateOptions)
   }
 
 }
 
-module.exports = MiddlewareGenerator
+module.exports = HookGenerator

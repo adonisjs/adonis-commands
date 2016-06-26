@@ -1,0 +1,15 @@
+'use strict'
+
+class {{name}} {
+
+{{#resource}}
+{{#methods}}
+  * {{.}}(request, response) {
+    //
+  }
+
+{{/methods}}
+{{/resource}}
+}
+
+module.exports = {{name}}

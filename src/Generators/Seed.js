@@ -10,9 +10,8 @@
 */
 
 const BaseGenerator = require('./Base')
-const path = require('path')
 
-class CommandGenerator extends BaseGenerator {
+class SeedGenerator extends BaseGenerator {
 
   /**
    * returns signature to be used by ace
@@ -21,7 +20,7 @@ class CommandGenerator extends BaseGenerator {
    * @public
    */
   get signature () {
-    return 'make:command {name}'
+    return 'make:seed {name}'
   }
 
   /**
@@ -31,12 +30,12 @@ class CommandGenerator extends BaseGenerator {
    * @public
    */
   get description () {
-    return 'Create a new ace command'
+    return 'Create a new seeder'
   }
 
   /**
    * handle method will be executed by ace. Here we
-   * create the command inside commands directory.
+   * create the template inside views directory.
    * @param  {Object} args
    * @param  {Object} options
    *
@@ -44,12 +43,12 @@ class CommandGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const entity = this._makeEntityName(name, 'command', false)
-    const toPath = path.join(this.helpers.appPath(), 'Commands', `${entity.entityName}.js`)
-    const templateOptions = {name: entity.entityPath}
-    yield this._wrapWrite('command', toPath, templateOptions)
+    const entity = this._makeEntityName(name, 'seed', false)
+    const toPath = this.helpers.seedsPath(`${entity.entityName}.js`)
+    const templateOptions = { name: entity.entityPath }
+    yield this._wrapWrite('seed', toPath, templateOptions)
   }
 
 }
 
-module.exports = CommandGenerator
+module.exports = SeedGenerator

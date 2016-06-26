@@ -1,0 +1,40 @@
+'use strict'
+
+const Schema = use('Schema')
+
+class {{name}}Schema extends Schema {
+  {{#connection}}
+
+  static get connection () {
+    return '{{connection}}'
+  }
+  {{/connection}}
+
+  up () {
+  {{#create}}
+    this.create('{{table}}', (table) => {
+      table.increments()
+      table.timestamps()
+    })
+  {{/create}}
+  {{^create}}
+    this.table('{{table}}', (table) => {
+      // alter {{table}} table
+    })
+  {{/create}}
+  }
+
+  down () {
+  {{#create}}
+    this.drop('{{table}}')
+  {{/create}}
+  {{^create}}
+    this.table('{{table}}', (table) => {
+      // opposite of up goes here
+    })
+  {{/create}}
+  }
+
+}
+
+module.exports = {{name}}Schema

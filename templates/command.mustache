@@ -1,0 +1,21 @@
+'use strict'
+
+const Command = use('Command')
+
+class {{name}} extends Command {
+
+  get signature () {
+    return ''
+  }
+
+  get description () {
+    return 'Tell something helpful about this command'
+  }
+
+  * handle (args, options) {
+    this.info('Dummy implementation for {{name}} command')
+  }
+
+}
+
+module.exports = {{name}}

@@ -1,3 +1,31 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/adonisjs/adonis-commands/compare/v2.0.5...v2.1.0) (2016-06-26)
+
+
+### Bug Fixes
+
+* **command:model:** Fix variable name for migration creation conditional([0e5eccd](https://github.com/adonisjs/adonis-commands/commit/0e5eccd))
+* **generator:command:** update template to have instance getters([2362658](https://github.com/adonisjs/adonis-commands/commit/2362658))
+
+
+### Features
+
+* add support for nested scaffolds([622f349](https://github.com/adonisjs/adonis-commands/commit/622f349))
+* **generate:hook:** add generator to create model hook([887bd17](https://github.com/adonisjs/adonis-commands/commit/887bd17))
+* **generator:** Add generator to create APP_KEY([de71f3b](https://github.com/adonisjs/adonis-commands/commit/de71f3b))
+* **generator:** Add listener generator([a4bf353](https://github.com/adonisjs/adonis-commands/commit/a4bf353))
+* **generator:*:** implement arguments to define custom template path for a generator([4dffab7](https://github.com/adonisjs/adonis-commands/commit/4dffab7))
+* **generator:command:** add generator to create a command([fa33a47](https://github.com/adonisjs/adonis-commands/commit/fa33a47))
+* **generator:controller:** replace --plain flag with --resource([53d5c4b](https://github.com/adonisjs/adonis-commands/commit/53d5c4b))
+* **generator:middleware:** add middleware generator([ecedcd9](https://github.com/adonisjs/adonis-commands/commit/ecedcd9))
+* **generator:seed:** add seed generator([3071e43](https://github.com/adonisjs/adonis-commands/commit/3071e43))
+* **generator:view:** add view generator([05e47a0](https://github.com/adonisjs/adonis-commands/commit/05e47a0))
+* **generators:** Initiate model,migration and contoller generator([c8b7ea3](https://github.com/adonisjs/adonis-commands/commit/c8b7ea3))
+* **repl:** Add repl command([f9e1b5e](https://github.com/adonisjs/adonis-commands/commit/f9e1b5e))
+* **repl:** Add repl command([7307cce](https://github.com/adonisjs/adonis-commands/commit/7307cce))
+
+
+
 <a name="2.0.5"></a>
 ## [2.0.5](https://github.com/adonisjs/adonis-commands/compare/v2.0.5...v2.0.5) (2016-03-20)
 

@@ -2,50 +2,58 @@
 
 /**
  * adonis-commands
- * Copyright(c) 2015-2015 Harminder Virk
- * MIT Licensed
+ *
+ * (c) Harminder Virk <virk@adonisjs.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
 */
 
-const utils = require('./helpers')
+const BaseGenerator = require('./Base')
 const path = require('path')
-const Ioc = require('adonis-fold').Ioc
-const controllerString = require('./strings').controller
-const methods = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']
 
-let Controller = exports = module.exports = {}
+class ControllerGenerator extends BaseGenerator {
 
-Controller.description = "Generate a new controller file by passing it's name"
-Controller.signature = '{name:controller name} {--plain?}'
-
-/**
- * @description handle method that will be invoked by ace when
- * this command is executed
- * @method
- * @param  {Object} options
- * @param  {Object} flags
- * @return {void}
- * @public
- */
-Controller.handle = function * (options, flags) {
-  const Helpers = Ioc.use('Adonis/Src/Helpers')
-  const Ansi = Ioc.use('Adonis/Src/Ansi')
-  const plain = flags.plain || false
-  const name = `${utils.makeName(options.name, 'Controller')}`
-  const controllerPath = path.join(Helpers.appPath(), `/Http/Controllers/${name}.js`)
-  let formattedControllerString = controllerString
-
-  methods.forEach(function (method) {
-    if (plain) {
-      formattedControllerString = formattedControllerString.replace(`{{${method}}}`, '')
-    } else {
-      formattedControllerString = formattedControllerString.replace(`{{${method}}}`, utils.makeControllerMethod(method))
-    }
-  })
-
-  try {
-    const response = yield utils.generateBlueprint(formattedControllerString, controllerPath, name, 'controller')
-    Ansi.success(response)
-  } catch (e) {
-    Ansi.error(e.message)
+  /**
+   * returns signature to be used by ace
+   * @return {String}
+   *
+   * @public
+   */
+  get signature () {
+    return 'make:controller {name} {-r,--resource?:Create a resourceful Controller}'
   }
+
+  /**
+   * returns description to be used by ace as help command
+   * @return {String}
+   *
+   * @public
+   */
+  get description () {
+    return 'Create a new controller'
+  }
+
+  /**
+   * handle method will be executed by ace. Here we
+   * create the controller to controller directory.
+   * @param  {Object} args
+   * @param  {Object} options
+   *
+   * @public
+   */
+  * handle (args, options) {
+    const name = args.name
+    const entity = this._makeEntityName(name, 'controller', true)
+    const toPath = path.join(this.helpers.appPath(), 'Http/Controllers', `${entity.entityPath}.js`)
+    const templateOptions = {
+      methods: ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
+      resource: options.resource || false,
+      name: entity.entityName
+    }
+    yield this._wrapWrite('controller', toPath, templateOptions)
+  }
+
 }
+
+module.exports = ControllerGenerator
