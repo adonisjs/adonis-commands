@@ -22,9 +22,6 @@
     "url": "https://github.com/adonisjs/adonis-commands/issues"
   },
   "homepage": "https://github.com/adonisjs/adonis-commands#readme",
-  "peerDependencies": {
-    "adonis-fold": "^3.0.2"
-  },
   "devDependencies": {
     "adonis-ace": "git+https://github.com/adonisjs/ace.git#develop",
     "adonis-fold": "^3.0.2",
