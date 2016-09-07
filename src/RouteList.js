@@ -35,7 +35,7 @@ class RouteList extends Command {
   			route.domain || '',
   			route.verb.join('|') || '',
         route.route || '',
-  			(route.handler.constructor === String ? route.handler : 'Function'),
+  			(route.handler.constructor === String ? route.handler : 'Closure'),
   			route.middlewares.join('|') || '',
   			route.name || ''
   		]
