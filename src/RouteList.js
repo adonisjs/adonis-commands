@@ -1,13 +1,16 @@
 'use strict'
 
+const path = require('path')
 const Ioc = require('adonis-fold').Ioc
 const Command = Ioc.use('Adonis/Src/Command')
-const Route = Ioc.use('Adonis/Src/Route')
+
 
 class RouteList extends Command {
 
-  constructor (Helpers) {
+  constructor (Route, Helpers) {
     super()
+
+    this.route = Route
     this.helpers = Helpers
   }
 
@@ -20,19 +23,19 @@ class RouteList extends Command {
   }
 
   setup(){
-      //Require the app/Http/routes.js to know what routes are registered
-      require(this.helpers.appPath()+'/Http/routes.js')
+      require(path.join(this.helpers.appPath(), 'Http/routes.js'))
       
-      this.routes = Route.routes()
       this.parsedRoutesList = []
   }
 
   _parseRoutes() {
-  	this.parsedRoutesList = this.routes.map(function(route){
+  	this.parsedRoutesList = this.route.routes().map(function(route){
+
 		return [
   			route.domain || '',
   			route.verb.join('|') || '',
-  			route.route || '',
+        route.route || '',
+  			(route.handler.constructor === String ? route.handler : 'Function'),
   			route.middlewares.join('|') || '',
   			route.name || ''
   		]
@@ -44,7 +47,7 @@ class RouteList extends Command {
   * handle (args, options) {
 
   	this.table(
-      ['Domain','Method','URI','Middlewares','Name'], 
+      ['Domain','Method','URI','Action','Middlewares','Name'], 
       this._parseRoutes()
     )
   }

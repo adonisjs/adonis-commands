@@ -8,8 +8,10 @@ class HelperCommandsProvider extends ServiceProvider {
   	//Route:List command
     this.app.bind('Adonis/Commands/Route:List', (app) => {
       const RouteList = require('../src/RouteList')
+      
       const Helpers = app.use('Adonis/Src/Helpers')
-      return new RouteList(Helpers)
+      const Route = app.use('Adonis/Src/Route')
+      return new RouteList(Route, Helpers)
     })
   }
 
