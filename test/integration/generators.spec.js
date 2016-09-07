@@ -31,10 +31,10 @@ describe('Generators', function () {
   context('Migration', function () {
     it('should create a new migration', function * () {
       yield setup.invokeCommand('make:migration', ['User'], {create: 'users'})
-      const UserSchema = require('./app/migrations/User.js')
-      expect(UserSchema.name).to.equal('UserSchema')
-      expect(typeof (new UserSchema().up)).to.equal('function')
-      expect(typeof (new UserSchema().down)).to.equal('function')
+      const UsersTableSchema = require('./app/migrations/User.js')
+      expect(UsersTableSchema.name).to.equal('UsersTableSchema')
+      expect(typeof (new UsersTableSchema().up)).to.equal('function')
+      expect(typeof (new UsersTableSchema().down)).to.equal('function')
     })
   })
 
