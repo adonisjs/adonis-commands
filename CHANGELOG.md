@@ -1,3 +1,8 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/adonisjs/adonis-commands/compare/v2.1.1...v2.1.2) (2016-09-26)
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/adonisjs/adonis-commands/compare/v2.0.5...v2.1.1) (2016-09-26)
 
