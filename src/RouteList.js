@@ -24,7 +24,7 @@ class RouteList extends Command {
 
   setup(){
       require(path.join(this.helpers.appPath(), 'Http/routes.js'))
-      
+
       this.parsedRoutesList = []
   }
 
@@ -47,8 +47,9 @@ class RouteList extends Command {
   * handle (args, options) {
 
   	this.table(
-      ['Domain','Method','URI','Action','Middlewares','Name'], 
-      this._parseRoutes()
+      ['Domain','Method','URI','Action','Middlewares','Name'],
+      this._parseRoutes(),
+      {head: ['cyan']}
     )
   }
 
