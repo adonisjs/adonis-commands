@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/adonisjs/adonis-commands/compare/v2.0.5...v2.1.1) (2016-09-26)
+
+
+### Features
+
+* add support for nested scaffolds ([622f349](https://github.com/adonisjs/adonis-commands/commit/622f349))
+* **commands:** add route:list command ([#8](https://github.com/adonisjs/adonis-commands/issues/8)) ([91ffdd0](https://github.com/adonisjs/adonis-commands/commit/91ffdd0))
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/adonisjs/adonis-commands/compare/v2.0.5...v2.1.0) (2016-06-26)
 

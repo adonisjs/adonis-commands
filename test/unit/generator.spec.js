@@ -198,9 +198,9 @@ describe('Generator', function () {
 
     it('should create a migrations file', function * () {
       const migrationGen = new MigrationGenerator(Helpers)
-      yield migrationGen.handle({name: 'User'}, {})
-      const Migration = require(Helpers.migrationsPath('User'))
-      expect(Migration.name).to.equal('UserSchema')
+      yield migrationGen.handle({name: 'Users'}, {})
+      const Migration = require(Helpers.migrationsPath('Users'))
+      expect(Migration.name).to.equal('UsersTableSchema')
       const migrationInstance = new Migration()
       expect(migrationInstance.up).to.be.a('function')
       expect(migrationInstance.down).to.be.a('function')
@@ -208,20 +208,20 @@ describe('Generator', function () {
 
     it('should define user_table as the table name for the migration', function * () {
       const migrationGen = new MigrationGenerator(Helpers)
-      yield migrationGen.handle({name: 'UserTable'}, {})
-      const Migration = require(Helpers.migrationsPath('UserTable'))
-      expect(Migration.name).to.equal('UserTableSchema')
+      yield migrationGen.handle({name: 'UserTables'}, {})
+      const Migration = require(Helpers.migrationsPath('UserTables'))
+      expect(Migration.name).to.equal('UserTablesTableSchema')
       const migrationInstance = new Migration()
       migrationInstance.up()
       expect(migrationInstance.payload.method).to.equal('table')
-      expect(migrationInstance.payload.table).to.equal('user_table')
+      expect(migrationInstance.payload.table).to.equal('user_tables')
     })
 
     it('should call create method when passing --create flag', function * () {
       const migrationGen = new MigrationGenerator(Helpers)
       yield migrationGen.handle({name: 'Account'}, {create: 'accounts'})
       const Migration = require(Helpers.migrationsPath('Account'))
-      expect(Migration.name).to.equal('AccountSchema')
+      expect(Migration.name).to.equal('AccountsTableSchema')
       const migrationInstance = new Migration()
       migrationInstance.up()
       expect(migrationInstance.payload.method).to.equal('create')
@@ -232,7 +232,7 @@ describe('Generator', function () {
       const migrationGen = new MigrationGenerator(Helpers)
       yield migrationGen.handle({name: 'Profile'}, {create: 'profiles', connection: 'Mysql'})
       const Migration = require(Helpers.migrationsPath('Profile'))
-      expect(Migration.name).to.equal('ProfileSchema')
+      expect(Migration.name).to.equal('ProfilesTableSchema')
       expect(Migration.connection).to.equal('Mysql')
     })
 
