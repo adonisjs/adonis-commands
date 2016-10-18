@@ -10,6 +10,7 @@
 */
 /* global describe, it, before, after, context */
 const chai = require('chai')
+const co = require('co')
 const setup = require('./setup')
 const fs = require('co-fs-extra')
 const path = require('path')
@@ -25,7 +26,7 @@ describe('Generators', function () {
   })
 
   after(function * () {
-    yield setup.end()
+    // yield setup.end()
   })
 
   context('Migration', function () {
@@ -59,6 +60,18 @@ describe('Generators', function () {
       yield setup.invokeCommand('make:model', ['User'], {})
       const UserModel = require('./app/Model/User.js')
       expect(UserModel.name).to.equal('User')
+    })
+
+    it('should create a new model with migration file', function (done) {
+      co(function * () {
+        return yield setup.invokeCommand('make:model', ['Post'], {migration: true})
+      }).then(() => {
+        setTimeout(() => {
+          const postMigration = require('./app/migrations/create_post_table.js')
+          expect(postMigration.name).to.equal('PostsTableSchema')
+          done()
+        }, 1000)
+      })
     })
   })
 
