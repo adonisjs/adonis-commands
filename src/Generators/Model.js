@@ -82,7 +82,7 @@ class ModelGenerator extends BaseGenerator {
         connection: options.connection,
         create: options.table || i.pluralize(i.underscore(name))
       }
-      this.run('make:migration', [name], templateOptions)
+      this.run('make:migration', [`create_${name.toLowerCase()}_table`], templateOptions)
     }
   }
 

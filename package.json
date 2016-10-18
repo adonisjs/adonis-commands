@@ -26,6 +26,7 @@
     "adonis-ace": "git+https://github.com/adonisjs/ace.git#develop",
     "adonis-fold": "^3.0.2",
     "chai": "^3.5.0",
+    "co": "^4.6.0",
     "co-mocha": "^1.1.2",
     "commander": "^2.9.0",
     "cz-conventional-changelog": "^1.1.5",
