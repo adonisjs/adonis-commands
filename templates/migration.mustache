@@ -10,6 +10,9 @@ class {{className}}TableSchema extends Schema {
   }
   {{/connection}}
 
+  /**
+   * Run the migrations.
+   */
   up () {
   {{#create}}
     this.create('{{table}}', (table) => {
@@ -24,6 +27,9 @@ class {{className}}TableSchema extends Schema {
   {{/create}}
   }
 
+  /**
+   * Reverse the migrations.
+   */
   down () {
   {{#create}}
     this.drop('{{table}}')
