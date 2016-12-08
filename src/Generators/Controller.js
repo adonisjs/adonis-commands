@@ -21,7 +21,7 @@ class ControllerGenerator extends BaseGenerator {
    * @public
    */
   get signature () {
-    return 'make:controller {name} {-r,--resource?:Create a resourceful Controller}'
+    return 'make:controller {name} {-t,--type=@value:Define the type of controller} {-r,--resource?:Create a resourceful Controller}'
   }
 
   /**
@@ -45,13 +45,31 @@ class ControllerGenerator extends BaseGenerator {
   * handle (args, options) {
     const name = args.name
     const entity = this._makeEntityName(name, 'controller', true)
-    const toPath = path.join(this.helpers.appPath(), 'Http/Controllers', `${entity.entityPath}.js`)
+    let controllerType = options.type || null
+
+    /**
+     * Prompting for controller type if not already defined
+     */
+    if (!controllerType) {
+      controllerType = yield this.choice('Generating a controller for ?', [{
+        name: 'Http Request',
+        value: 'http'
+      }, {
+        name: 'For WebSocket Channel',
+        value: 'ws'
+      }]).print()
+    }
+
+    const controllersPath = controllerType === 'http' ? 'Http/Controllers' : 'Ws/Controllers'
+    const template = controllerType === 'http' ? 'controller' : 'ws-controller'
+
+    const toPath = path.join(this.helpers.appPath(), controllersPath, `${entity.entityPath}.js`)
     const templateOptions = {
       methods: ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
       resource: options.resource || false,
       name: entity.entityName
     }
-    yield this._wrapWrite('controller', toPath, templateOptions)
+    yield this._wrapWrite(template, toPath, templateOptions)
   }
 
 }
