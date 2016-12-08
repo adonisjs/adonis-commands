@@ -40,8 +40,8 @@ describe('Generators', function () {
   })
 
   context('Controller', function () {
-    it('should create a new controller', function * () {
-      yield setup.invokeCommand('make:controller', ['User'], {resource: true})
+    it('should create a new controller for http when type is set to http', function * () {
+      yield setup.invokeCommand('make:controller', ['User'], {resource: true, type: 'http'})
       const UserController = require('./app/Http/Controllers/UserController.js')
       const user = new UserController()
       expect(UserController.name).to.equal('UserController')
@@ -52,6 +52,43 @@ describe('Generators', function () {
       expect(typeof (user.edit)).to.equal('function')
       expect(typeof (user.update)).to.equal('function')
       expect(typeof (user.destroy)).to.equal('function')
+    })
+
+    it('should create a new controller for websocket channel when type is set to ws', function * () {
+      yield setup.invokeCommand('make:controller', ['User'], {resource: true, type: 'ws'})
+      const UserController = require('./app/Http/Controllers/UserController.js')
+      const user = new UserController()
+      expect(UserController.name).to.equal('UserController')
+      expect(typeof (user.index)).to.equal('function')
+      expect(typeof (user.create)).to.equal('function')
+      expect(typeof (user.store)).to.equal('function')
+      expect(typeof (user.show)).to.equal('function')
+      expect(typeof (user.edit)).to.equal('function')
+      expect(typeof (user.update)).to.equal('function')
+      expect(typeof (user.destroy)).to.equal('function')
+    })
+
+    it('should prompt for controller type when type is not defined', function * () {
+      const Controller = require('../../src/Generators/Controller')
+      let choiceCalled = false
+      let printCalled = false
+      const _existingChoice = Controller.prototype.choice
+      const _existingPrint = Controller.prototype.print
+      Controller.prototype.choice = function () {
+        choiceCalled = true
+        return this
+      }
+
+      Controller.prototype.print = function * () {
+        printCalled = true
+        return 'http'
+      }
+      yield setup.invokeCommand('make:controller', ['Foo'], {})
+      require('./app/Http/Controllers/FooController.js')
+      expect(printCalled).to.equal(true)
+      expect(choiceCalled).to.equal(true)
+      Controller.prototype.choice = _existingChoice
+      Controller.prototype.print = _existingPrint
     })
   })
 
