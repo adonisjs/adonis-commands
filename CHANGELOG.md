@@ -1,3 +1,18 @@
+<a name="2.1.3"></a>
+## [2.1.3](https://github.com/adonisjs/adonis-commands/compare/v2.1.2...v2.1.3) (2016-12-12)
+
+
+### Bug Fixes
+
+* **make:model:** stay consistent with file names ([54a6c8f](https://github.com/adonisjs/adonis-commands/commit/54a6c8f)), closes [#9](https://github.com/adonisjs/adonis-commands/issues/9)
+
+
+### Features
+
+* **websocket:** add support for websocket controller ([b5e92e2](https://github.com/adonisjs/adonis-commands/commit/b5e92e2))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/adonisjs/adonis-commands/compare/v2.1.1...v2.1.2) (2016-09-26)
 
