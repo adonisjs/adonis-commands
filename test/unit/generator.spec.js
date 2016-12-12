@@ -113,6 +113,13 @@ describe('Generator', function () {
   })
 
   context('Controller', function () {
+    ControllerGenerator.prototype.choice = function () {
+      return this
+    }
+
+    ControllerGenerator.prototype.print = function * () {
+      return 'http'
+    }
     it('should create a controller file', function * () {
       const controllerGen = new ControllerGenerator(Helpers)
       yield controllerGen.handle({name: 'UserPlain'}, {})
