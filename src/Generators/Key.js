@@ -15,7 +15,7 @@ const path = require('path')
 class KeyGenerator extends BaseGenerator {
 
   get signature () {
-    return 'key:generate {-f,--force?} {-e,--env=@value} {-s,--size=@value}'
+    return 'key:generate {-f,--force?} {-e,--env=@value} {-s,--size=@value} {--echo?}'
   }
 
   get description () {
@@ -37,8 +37,13 @@ class KeyGenerator extends BaseGenerator {
     const size = options.size || 32
     const pathToEnv = path.isAbsolute(env) ? env : path.join(this.helpers.basePath(), env)
     let parsedValues = yield this._getContents(pathToEnv)
+    const key = this.randomString.generate(size)
+
+    if (options.echo) {
+      return this.success(`APP_KEY=${key}`)
+    }
     parsedValues = this.dotEnv.parse(parsedValues)
-    parsedValues.APP_KEY = this.randomString.generate(size)
+    parsedValues.APP_KEY = key
     Object.keys(parsedValues).forEach(function (item) {
       envContents += `${item}=${parsedValues[item]}\n`
     })
