@@ -2,7 +2,7 @@
 
 const Schema = use('Schema')
 
-class {{name}}Schema extends Schema {
+class {{className}}TableSchema extends Schema {
   {{#connection}}
 
   static get connection () {
@@ -37,4 +37,4 @@ class {{name}}Schema extends Schema {
 
 }
 
-module.exports = {{name}}Schema
+module.exports = {{className}}TableSchema

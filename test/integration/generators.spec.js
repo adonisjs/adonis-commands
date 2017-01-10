@@ -10,6 +10,7 @@
 */
 /* global describe, it, before, after, context */
 const chai = require('chai')
+const co = require('co')
 const setup = require('./setup')
 const fs = require('co-fs-extra')
 const path = require('path')
@@ -25,22 +26,23 @@ describe('Generators', function () {
   })
 
   after(function * () {
-    yield setup.end()
+    // yield setup.end()
   })
 
   context('Migration', function () {
     it('should create a new migration', function * () {
       yield setup.invokeCommand('make:migration', ['User'], {create: 'users'})
-      const UserSchema = require('./app/migrations/User.js')
-      expect(UserSchema.name).to.equal('UserSchema')
-      expect(typeof (new UserSchema().up)).to.equal('function')
-      expect(typeof (new UserSchema().down)).to.equal('function')
+      const UsersTableSchema = require('./app/migrations/User.js')
+      expect(UsersTableSchema.name).to.equal('UsersTableSchema')
+      expect(typeof (new UsersTableSchema().up)).to.equal('function')
+      expect(typeof (new UsersTableSchema().down)).to.equal('function')
     })
   })
 
   context('Controller', function () {
-    it('should create a new controller', function * () {
-      yield setup.invokeCommand('make:controller', ['User'], {resource: true})
+
+    it('should create a new controller for http when type is set to http', function * () {
+      yield setup.invokeCommand('make:controller', ['User'], {resource: true, type: 'http'})
       const UsersController = require('./app/Http/Controllers/UsersController.js')
       const user = new UsersController()
       expect(UsersController.name).to.equal('UsersController')
@@ -52,6 +54,43 @@ describe('Generators', function () {
       expect(typeof (user.update)).to.equal('function')
       expect(typeof (user.destroy)).to.equal('function')
     })
+
+    it('should create a new controller for websocket channel when type is set to ws', function * () {
+      yield setup.invokeCommand('make:controller', ['User'], {resource: true, type: 'ws'})
+      const UserController = require('./app/Http/Controllers/UserController.js')
+      const user = new UserController()
+      expect(UserController.name).to.equal('UserController')
+      expect(typeof (user.index)).to.equal('function')
+      expect(typeof (user.create)).to.equal('function')
+      expect(typeof (user.store)).to.equal('function')
+      expect(typeof (user.show)).to.equal('function')
+      expect(typeof (user.edit)).to.equal('function')
+      expect(typeof (user.update)).to.equal('function')
+      expect(typeof (user.destroy)).to.equal('function')
+    })
+
+    it('should prompt for controller type when type is not defined', function * () {
+      const Controller = require('../../src/Generators/Controller')
+      let choiceCalled = false
+      let printCalled = false
+      const _existingChoice = Controller.prototype.choice
+      const _existingPrint = Controller.prototype.print
+      Controller.prototype.choice = function () {
+        choiceCalled = true
+        return this
+      }
+
+      Controller.prototype.print = function * () {
+        printCalled = true
+        return 'http'
+      }
+      yield setup.invokeCommand('make:controller', ['Foo'], {})
+      require('./app/Http/Controllers/FooController.js')
+      expect(printCalled).to.equal(true)
+      expect(choiceCalled).to.equal(true)
+      Controller.prototype.choice = _existingChoice
+      Controller.prototype.print = _existingPrint
+    })
   })
 
   context('Model', function () {
@@ -59,6 +98,18 @@ describe('Generators', function () {
       yield setup.invokeCommand('make:model', ['User'], {})
       const UserModel = require('./app/Model/User.js')
       expect(UserModel.name).to.equal('User')
+    })
+
+    it('should create a new model with migration file', function (done) {
+      co(function * () {
+        return yield setup.invokeCommand('make:model', ['Post'], {migration: true})
+      }).then(() => {
+        setTimeout(() => {
+          const postMigration = require('./app/migrations/create_post_table.js')
+          expect(postMigration.name).to.equal('PostsTableSchema')
+          done()
+        }, 1000)
+      })
     })
   })
 
