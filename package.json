@@ -1,6 +1,6 @@
 {
   "name": "adonis-commands",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Project scaffolding for Adonis framework",
   "main": "index.js",
   "directories": {

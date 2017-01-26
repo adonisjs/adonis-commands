@@ -1,3 +1,13 @@
+<a name="2.1.5"></a>
+## [2.1.5](https://github.com/adonisjs/adonis-commands/compare/v2.1.4...v2.1.5) (2017-01-26)
+
+
+### Bug Fixes
+
+* **repl:** use os.homedir to retrieve the user directory ([#18](https://github.com/adonisjs/adonis-commands/issues/18)) ([6aa325e](https://github.com/adonisjs/adonis-commands/commit/6aa325e))
+
+
+
 <a name="2.1.4"></a>
 ## [2.1.4](https://github.com/adonisjs/adonis-commands/compare/v2.1.3...v2.1.4) (2017-01-26)
 
