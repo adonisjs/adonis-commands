@@ -1,3 +1,18 @@
+<a name="2.1.4"></a>
+## [2.1.4](https://github.com/adonisjs/adonis-commands/compare/v2.1.3...v2.1.4) (2017-01-26)
+
+
+### Bug Fixes
+
+* **seeder:** correct the file name ([#16](https://github.com/adonisjs/adonis-commands/issues/16)) ([d35b9fc](https://github.com/adonisjs/adonis-commands/commit/d35b9fc))
+
+
+### Features
+
+* Adds echo option for echoing key:generate ([#13](https://github.com/adonisjs/adonis-commands/issues/13)) ([457d173](https://github.com/adonisjs/adonis-commands/commit/457d173))
+
+
+
 <a name="2.1.3"></a>
 ## [2.1.3](https://github.com/adonisjs/adonis-commands/compare/v2.1.2...v2.1.3) (2016-12-12)
 
