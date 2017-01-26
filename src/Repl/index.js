@@ -6,7 +6,8 @@ const Ioc = require('adonis-fold').Ioc
 const path = require('path')
 const Command = Ioc.use('Adonis/Src/Command')
 const fs = require('fs')
-const historyFile = path.join(process.env.HOME, '/.adonis_repl_history')
+const os = require('os')
+const historyFile = path.join(os.homedir(), '/.adonis_repl_history')
 
 class Repl extends Command {
 
