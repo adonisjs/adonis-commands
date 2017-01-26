@@ -189,7 +189,7 @@ describe('Generators', function () {
   context('Seed', function () {
     it('should create a seed file', function * () {
       yield setup.invokeCommand('make:seed', ['User'], {})
-      const UserSeeder = require('./app/seeds/User.js')
+      const UserSeeder = require('./app/seeds/UserSeeder.js')
       expect(UserSeeder.name).to.equal('UserSeeder')
     })
   })
