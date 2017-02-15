@@ -21,6 +21,7 @@ This repo contains commands used by [ace](http://adonisjs.com/docs/2.0/ace-comma
 - Middleware
 - Migrations
 - Seeds
+- Routes
 
 You can learn more about AdonisJS and all of its awesomeness on http://adonisjs.com :evergreen_tree:
 
@@ -152,6 +153,11 @@ Define a method to be created on the listener.
 ./ace make:listener Emailer --method=sendWelcomeEmail
 ```
 
+### Routes
+
+```bash
+./ace route:list
+```
 
 ## <a name="contribution-guidelines"></a>Contribution Guidelines
 
