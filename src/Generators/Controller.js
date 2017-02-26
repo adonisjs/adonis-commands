@@ -11,6 +11,7 @@
 
 const BaseGenerator = require('./Base')
 const path = require('path')
+const i = require('inflect')
 
 class ControllerGenerator extends BaseGenerator {
 
@@ -44,7 +45,7 @@ class ControllerGenerator extends BaseGenerator {
    */
   * handle (args, options) {
     const name = args.name
-    const entity = this._makeEntityName(name, 'controller', true)
+    const entity = this._makeEntityName(i.pluralize(name), 'controller', true)
     let controllerType = options.type || null
 
     /**
@@ -64,6 +65,7 @@ class ControllerGenerator extends BaseGenerator {
     const template = controllerType === 'http' ? 'controller' : 'ws-controller'
 
     const toPath = path.join(this.helpers.appPath(), controllersPath, `${entity.entityPath}.js`)
+
     const templateOptions = {
       methods: ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
       resource: options.resource || false,

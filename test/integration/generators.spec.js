@@ -42,9 +42,9 @@ describe('Generators', function () {
   context('Controller', function () {
     it('should create a new controller for http when type is set to http', function * () {
       yield setup.invokeCommand('make:controller', ['User'], {resource: true, type: 'http'})
-      const UserController = require('./app/Http/Controllers/UserController.js')
-      const user = new UserController()
-      expect(UserController.name).to.equal('UserController')
+      const UsersController = require('./app/Http/Controllers/UsersController.js')
+      const user = new UsersController()
+      expect(UsersController.name).to.equal('UsersController')
       expect(typeof (user.index)).to.equal('function')
       expect(typeof (user.create)).to.equal('function')
       expect(typeof (user.store)).to.equal('function')
@@ -56,9 +56,9 @@ describe('Generators', function () {
 
     it('should create a new controller for websocket channel when type is set to ws', function * () {
       yield setup.invokeCommand('make:controller', ['User'], {resource: true, type: 'ws'})
-      const UserController = require('./app/Http/Controllers/UserController.js')
-      const user = new UserController()
-      expect(UserController.name).to.equal('UserController')
+      const UsersController = require('./app/Http/Controllers/UsersController.js')
+      const user = new UsersController()
+      expect(UsersController.name).to.equal('UsersController')
       expect(typeof (user.index)).to.equal('function')
       expect(typeof (user.create)).to.equal('function')
       expect(typeof (user.store)).to.equal('function')
@@ -84,7 +84,7 @@ describe('Generators', function () {
         return 'http'
       }
       yield setup.invokeCommand('make:controller', ['Foo'], {})
-      require('./app/Http/Controllers/FooController.js')
+      require('./app/Http/Controllers/FoosController.js')
       expect(printCalled).to.equal(true)
       expect(choiceCalled).to.equal(true)
       Controller.prototype.choice = _existingChoice
