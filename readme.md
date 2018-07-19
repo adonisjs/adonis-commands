@@ -10,7 +10,7 @@
 
 > :pray: Commands to scaffold AdonisJs application.
 
-This repo contains commands used by [ace](http://adonisjs.com/docs/2.0/ace-commands) to do common tasks from command line. It includes generators for:
+This repo contains commands used by [ace](https://adonisjs.com/docs/4.1/ace) to do common tasks from command line. It includes generators for:
 
 - Controllers
 - Models
@@ -23,7 +23,7 @@ This repo contains commands used by [ace](http://adonisjs.com/docs/2.0/ace-comma
 - Seeds
 - Routes
 
-You can learn more about AdonisJS and all of its awesomeness on http://adonisjs.com :evergreen_tree:
+You can learn more about AdonisJS and all of its awesomeness on https://adonisjs.com :evergreen_tree:
 
 ## Table of Contents
 
