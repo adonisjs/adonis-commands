@@ -38,7 +38,7 @@
     "co-fs-extra": "^1.2.1",
     "dotenv": "^2.0.0",
     "hogan.js": "^3.0.2",
-    "inflect": "^0.3.0",
+    "inflect": "^0.5.0",
     "randomstring": "^1.1.5"
   },
   "config": {
